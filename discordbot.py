@@ -1,20 +1,15 @@
 # coding: utf-8
 
-# インストールした discord.py を読み込む
-import discord
 from discord.ext import commands
+from os import getenv
+import traceback
+import discord
 
-# 自分のBotのアクセストークンに置き換えてください
-TOKEN = 'OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8'
+
 bot = commands.Bot(prefix='!')
-
-#bot = discord.Client()
-#client.Bot(command_prefix='/',activity=discord.Activity(name='起動中!',type=discord.ActivityType.watching))
-
 CHANNEL_ID = 948457438728835073 # 任意のチャンネルID(int)
 
 
-# bot起動時に実行されるイベントハンドラを定義
 @bot.event
 async def on_ready():
     print('Login infomation>>>')
@@ -34,15 +29,15 @@ async def on_ready():
     channel = bot.get_channel(CHANNEL_ID)
 
     await channel.send(embed=embed) # embedの送信には、embed={定義したembed名}
-#新規メンバー参加時に実行されるイベントハンドラ
 
-#あいさつするイベントハンドラ
+
 @bot.command(name="こんにちは")
 async def hello(ctx):
     await ctx.send(f"どうも、{ctx.message.author.name}さん！")
 
-#テキストチャンネル内のログが消える
+    
 @bot.event
+#テキストチャンネル内のログが消える
 async def on_message(message):
     if message.content == '!cleanup':
         if message.author.guild_permissions.administrator:
@@ -53,5 +48,7 @@ async def on_message(message):
     elif message.content == '!hello':
         await message.channel.send('こんにちは、プロデューサー。')
 
+        
 # Botの起動とDiscordサーバーへの接続
-bot.run(TOKEN)
+token = getenv('DISCORD_BOT_TOKEN')
+bot.run(token)
