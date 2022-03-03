@@ -1,54 +1,78 @@
-# coding: utf-8
-
 from discord.ext import commands
 from os import getenv
 import traceback
 import discord
 
+prefix = '!'
+CHANNEL_ID = 948457438728835073 #⌘Command
 
-bot = commands.Bot(prefix='!')
-CHANNEL_ID = 948457438728835073 # 任意のチャンネルID(int)
+
+@bot.command()
+async def ping(ctx):
+    """ テスト:ping->pong """
+    await ctx.send('pong')
+
+
+@bot.command()
+async def hello(ctx):
+    """ 挨拶を返す """
+    await ctx.send('こんにちは、プロデューサー。')
+
+
+@bot.command()
+async def site(ctx):
+    """ 公式サイトへの案内 """
+    embed = discord.Embed(
+                          title="シャイニーカラーズ",
+                          color=0x00ff00,
+                          description="公式サイトはこちらから",
+                          )
+    embed.set_author(
+                     icon_url=bot.user.avatar_url
+                    )
+    channel = bot.get_channel(CHANNEL_ID)
+
+    await channel.send(embed=embed)
+
+
+@bot.command()
+async def cleanup(message):
+    """ テキストチャンネル内のログが消える """
+    if message.author.guild_permissions.administrator:
+        await message.channel.purge()
+        await message.channel.send('塵一つ残らないね！')
+    else:
+        await message.channel.send('管理者以外は使用できないよ。')
 
 
 @bot.event
 async def on_ready():
+    #サーバーにオンラインになった時にメッセージを送信する。
+    print('------')
     print('Login infomation>>>')
     print(bot.user.name)
     print('------')
-    embed = discord.Embed( # Embedを定義する
-                          title="Hello Sakuya",# タイトル
-                          color=0x00ff00, # フレーム色指定(今回は緑)
-                          description="ログインしたよ。コマンドは【!】をはじめに入力してね。",
+    embed = discord.Embed(
+                          title="Hello Sakuya",
+                          color=0x00ff00,
+                          description="ログインしたよ。コマンドは'!'をはじめに入力してね。",
                           )
-    embed.set_author(name=bot.user, # Botのユーザー名
-                     icon_url=bot.user.avatar_url # Botのアイコンを設定してみる
+    embed.set_author(name=bot.user,
+                     icon_url=bot.user.avatar_url
                     )
-    embed.set_footer(text="made by AMAMI", # フッターには開発者の情報でも入れてみる
-                     icon_url="https://twitter.com/amami_ew")
-
     channel = bot.get_channel(CHANNEL_ID)
+    await channel.send(embed=embed)
 
-    await channel.send(embed=embed) # embedの送信には、embed={定義したembed名}
 
-
-@bot.command(name="こんにちは")
-async def hello(ctx):
-    await ctx.send(f"どうも、{ctx.message.author.name}さん！")
-
-    
 @bot.event
-#テキストチャンネル内のログが消える
-async def on_message(message):
-    if message.content == '!cleanup':
-        if message.author.guild_permissions.administrator:
-            await message.channel.purge()
-            await message.channel.send('塵一つ残らないね！')
-        else:
-            await message.channel.send('何様のつもり？')
-    elif message.content == '!hello':
-        await message.channel.send('こんにちは、プロデューサー。')
+async def on_command_error(ctx, error):
+    if isinstance(error, CommandNotFound):
+        print(ctx.message.content + " は未知のコマンドだよ。")
 
-        
+
+
 # Botの起動とDiscordサーバーへの接続
-token = getenv('DISCORD_BOT_TOKEN')
+bot = commands.Bot(command_prefix=prefix)
+token = getenv('DISCORD_BOT_TOKEN') # herokuにtokenを入力している。
+
 bot.run(token)
