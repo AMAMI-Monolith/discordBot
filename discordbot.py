@@ -4,7 +4,6 @@ from discord.ext import commands
 from os import getenv
 
 # Botの起動とDiscordサーバーへの接続
-token = getenv('DISCORD_BOT_TOKEN') # herokuにtokenを入力している。
 bot = commands.Bot(command_prefix = "!")
 
  
@@ -87,6 +86,17 @@ async def on_ready():
     print(f'{bot.user.name}がログインしたよ。')
     print('------')
     await bot.change_presence(activity=discord.Game(name="!help"))
+"""    embed = discord.Embed(
+                      title="Hello Sakuya",
+                      color=0x00ff00,
+                      description="オンラインになったよ。",
+                      )
+    embed.set_author(name=bot.user,
+                     icon_url=bot.user.avatar_url
+                    )
+    user = bot.get_user(260333442489647105)
+    await user.send(embed=embed)
+"""
 
-    
-bot.run(token)
+
+bot.run('OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8')
