@@ -87,19 +87,6 @@ async def on_ready():
     print(f'{bot.user.name}がログインしたよ。')
     print('------')
     await bot.change_presence(activity=discord.Game(name="!help"))
-    embed = discord.Embed(
-                      title="Hello Sakuya",
-                      color=0x00ff00,
-                      description="オンラインになったよ。",
-                      )
-    embed.set_author(name=bot.user,
-                     icon_url=bot.user.avatar_url
-                    )
-    fname="BotOnline.png "
-    file = discord.File(fp="/BotOnline.png",filename=fname,spoiler=False)
-    embed.set_image(url=f"attachment://{fname}")
-    user =bot.get_user(260333442489647105)
-    await user.send(embed=embed)
 
     
 bot.run(token)
