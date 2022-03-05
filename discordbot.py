@@ -81,22 +81,25 @@ async def on_member_join(member):
 
 @bot.event
 async def on_ready():
-    # このbotのサーバーにオンラインになった時にメッセージを送信する。
+    # このbotのサーバーにオンラインになった時に私にDM(ダイレクトメッセージ)を送信する。
     print('------')
     print('Login infomation>>>')
     print(f'{bot.user.name}がログインしたよ。')
     print('------')
     await bot.change_presence(activity=discord.Game(name="!help"))
     embed = discord.Embed(
-                          title="Hello Sakuya",
-                          color=0x00ff00,
-                          description="オンラインになったよ。コマンドは '!' をはじめに入力してね。\nコマンド一覧は '!help' を入力してね。",
-                          )
+                      title="Hello Sakuya",
+                      color=0x00ff00,
+                      description="オンラインになったよ。",
+                      )
     embed.set_author(name=bot.user,
                      icon_url=bot.user.avatar_url
                     )
-    channel = bot.get_channel(948457438728835073) # command
-    await channel.send(embed=embed)
+    fname="BotOnline.png "
+    file = discord.File(fp="/BotOnline.png",filename=fname,spoiler=False)
+    embed.set_image(url=f"attachment://{fname}")
+    user =bot.get_user(260333442489647105)
+    await user.send(embed=embed)
 
     
 bot.run(token)
