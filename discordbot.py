@@ -1,78 +1,102 @@
+import discord
+import traceback
 from discord.ext import commands
 from os import getenv
-import traceback
-import discord
 
-prefix = '!'
-CHANNEL_ID = 948457438728835073 #⌘Command
+# Botの起動とDiscordサーバーへの接続
+token = getenv('DISCORD_BOT_TOKEN') # herokuにtokenを入力している。
+bot = commands.Bot(command_prefix = "!")
 
-
+ 
 @bot.command()
-async def ping(ctx):
-    """ テスト:ping->pong """
-    await ctx.send('pong')
+async def nya(ctx):
+    """ テスト:nyaa """
+    if message.author.bot:
+        return
+    else:
+        await ctx.send('にゃー')
 
 
 @bot.command()
 async def hello(ctx):
     """ 挨拶を返す """
-    await ctx.send('こんにちは、プロデューサー。')
+    reply = f'こんにちは、{ctx.author.mention}プロデューサー。'
+    await ctx.channel.send(reply)
 
 
 @bot.command()
 async def site(ctx):
     """ 公式サイトへの案内 """
-    embed = discord.Embed(
-                          title="シャイニーカラーズ",
-                          color=0x00ff00,
-                          description="公式サイトはこちらから",
-                          )
-    embed.set_author(
-                     icon_url=bot.user.avatar_url
-                    )
-    channel = bot.get_channel(CHANNEL_ID)
-
-    await channel.send(embed=embed)
+    embed=discord.Embed(
+                        title='シャイニーカラーズ',
+                        url='https://shinycolors.idolmaster.jp/',
+                        description='公式サイトはこちらから',
+                        color=0x00f900)
+    embed.set_thumbnail(
+                        url='https://shinycolors.idolmaster.jp/pc/static/img/download/thumb_lantica_sakuya.png'
+                        )
+    await ctx.send(embed=embed)
 
 
 @bot.command()
-async def cleanup(message):
-    """ テキストチャンネル内のログが消える """
-    if message.author.guild_permissions.administrator:
-        await message.channel.purge()
-        await message.channel.send('塵一つ残らないね！')
+async def cleanup(ctx):
+    """ テキストチャンネル内のログが消える。 (管理者のみ)"""
+    if ctx.author.guild_permissions.administrator:
+        await ctx.channel.purge()
+        await ctx.channel.send('チャンネルを綺麗にしたよ。')
     else:
-        await message.channel.send('管理者以外は使用できないよ。')
+        await ctx.channel.send('管理者以外は使用できないよ。')
+
+
+@bot.event
+async def create_channel(message, channel_name):
+    # 下のmkchから呼ばれる新規テキストチャンネルを作成する。
+    category_id = message.channel.category_id
+    category = message.guild.get_channel(category_id)
+    new_channel = await category.create_text_channel(name=channel_name)
+    return new_channel
+
+@bot.command()
+async def mkch(ctx):
+    """ 発言したチャンネルのカテゴリ内に新規テキストチャンネルを作成。 """
+    new_channel = await create_channel(ctx, channel_name = ctx.author.name)
+    # チャンネルのリンクと作成メッセージを送信
+    text = f'{new_channel.mention} を作成したよ。'
+    await ctx.channel.send(text)
+
+
+@bot.event
+async def on_member_join(member):
+    # ユーザのサーバーへの参加を検知し、埋め込みでログを残す。
+    guild = member.guild
+    ready=discord.utils.get(guild.text_channels, name="はじめに") #946633117651836978
+    rule =discord.utils.get(guild.text_channels, name="サーバールール") #945589161509941279
+    channel=discord.utils.get(guild.text_channels, name="入室ログ")
+    embed=discord.Embed(title=f'{member.author.name} さんが参加しました', color=0x00ffff)
+    embed.set_thumbnail(url=member.author.avatar_url)
+    embed.add_field(name="name", value=f'{member.author.mention}', inline=False)
+    await channel.send(f'{member.author.mention}\nようこそ、{ready.mention} と {rule.mention} を最初にお読みください。',
+                        embed=embed)
 
 
 @bot.event
 async def on_ready():
-    #サーバーにオンラインになった時にメッセージを送信する。
+    # このbotのサーバーにオンラインになった時にメッセージを送信する。
     print('------')
     print('Login infomation>>>')
-    print(bot.user.name)
+    print(f'{bot.user.name}がログインしたよ。')
     print('------')
+    await bot.change_presence(activity=discord.Game(name="!help"))
     embed = discord.Embed(
                           title="Hello Sakuya",
                           color=0x00ff00,
-                          description="ログインしたよ。コマンドは'!'をはじめに入力してね。",
+                          description="オンラインになったよ。コマンドは '!' をはじめに入力してね。\nコマンド一覧は '!help' を入力してね。",
                           )
     embed.set_author(name=bot.user,
                      icon_url=bot.user.avatar_url
                     )
-    channel = bot.get_channel(CHANNEL_ID)
+    channel = bot.get_channel(948457438728835073) # command
     await channel.send(embed=embed)
 
-
-@bot.event
-async def on_command_error(ctx, error):
-    if isinstance(error, CommandNotFound):
-        print(ctx.message.content + " は未知のコマンドだよ。")
-
-
-
-# Botの起動とDiscordサーバーへの接続
-bot = commands.Bot(command_prefix=prefix)
-token = getenv('DISCORD_BOT_TOKEN') # herokuにtokenを入力している。
-
+    
 bot.run(token)
