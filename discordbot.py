@@ -173,7 +173,7 @@ async def helps(message):
 async def on_command_error(message, error):
     if isinstance(error, CommandNotFound):
         print(message.message.content + " は未知のコマンドです。")
-        await help(message)
+        await helps(message)
         
 
 
