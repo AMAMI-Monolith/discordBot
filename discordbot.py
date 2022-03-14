@@ -122,64 +122,67 @@ async def on_ready():
     msg = "🔴 status : Online"
     await admin.send(msg)
 
+@bot.event
+async def help(message):
+    "embeds": [
+        {
+            "type": "rich",
+            "title": 'Command List',
+            "description": 'コマンドの説明、最初に「!」を忘れずに',
+            "color": 0xff5900,
+            "fields": [
+                {
+                    "name": '!hello',
+                    "value": '挨拶を返す',
+                    "inline": True
+                },
+                {
+                    "name": '!nya',
+                    "value": '「nyaa」と返す',
+                    "inline": True
+                },
+                {
+                    "name": '!site7',
+                    "value": '【シャニマス公式サイト】へのリンクを返す。',
+                    "inline": True
+                },
+                {
+                    "name": '!mkch',
+                    "value": '新しくテキストチャンネルを作る。',
+                    "inline": True
+                },
+                {
+                    "name": '!support',
+                    "value": '管理人にサポートを受けるメッセージを送信する。(DMに送信)',
+                    "inline": True
+                },
+                {
+                    "name": '!stop',
+                    "value": 'このBotを停止できる。(管理人専用)',
+                    "inline": True
+                },
+                {
+                    "name": '!cleanup',
+                    "value": '入力したテキストチャンネルのメッセージが全て消える(管理人専用)',
+                    "inline": True
+                }
+            ]
+        }
+    ]
+    fname="help.png " # アップロードするときのファイル名 自由に決めて良いですが、拡張子を忘れないように
+    file = discord.File(fp="img",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
+    embed.set_image(url=f"attachment://{fname}")
+    await message.channel.send(file=file, embed=embed)
 
-@client.event
+@bot.event
 async def on_command_error(message, error):
     if isinstance(error, CommandNotFound):
         print(message.message.content + " は未知のコマンドです。")
-        "tts": false,
-        "embeds": [
-            {
-                "type": "rich",
-                "title": 'Command List',
-                "description": 'コマンドの説明、最初に「!」を忘れずに',
-                "color": 0xff5900,
-                "fields": [
-                    {
-                        "name": '!hello',
-                        "value": '挨拶を返す',
-                        "inline": True
-                    },
-                    {
-                        "name": '!nya',
-                        "value": '「nyaa」と返す',
-                        "inline": True
-                    },
-                    {
-                        "name": '!site7',
-                        "value": '【シャニマス公式サイト】へのリンクを返す。',
-                        "inline": True
-                    },
-                    {
-                        "name": '!mkch',
-                        "value": '新しくテキストチャンネルを作る。',
-                        "inline": True
-                    },
-                    {
-                        "name": '!support',
-                        "value": '管理人にサポートを受けるメッセージを送信する。(DMに送信)',
-                        "inline": True
-                    },
-                    {
-                        "name": '!stop',
-                        "value": 'このBotを停止できる。(管理人専用)',
-                        "inline": True
-                    },
-                    {
-                        "name": '!cleanup',
-                        "value": '入力したテキストチャンネルのメッセージが全て消える(管理人専用)',
-                        "inline": True
-                    }
-                ]
-            }
-        ]
-        fname="help.png " # アップロードするときのファイル名 自由に決めて良いですが、拡張子を忘れないように
-        file = discord.File(fp="img",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
-        embed.set_image(url=f"attachment://{fname}")
-        await message.channel.send(file=file, embed=embed)
+        await help()
+        
 
 
-bot.run('OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8')
+# bot.run('OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8')
 
 
 bot.run(token)
