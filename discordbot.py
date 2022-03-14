@@ -14,47 +14,45 @@ bot = commands.Bot(
     help_command = None #標準のhelpコマンドを無効化する(None)
 )
 
-
-class General(commands.Cog):
-    @bot.command()
-    async def nya(message):
-        """ テスト:nyaa """
-        await message.send('にゃー')
+@bot.command()
+async def nya(message):
+    """ テスト:nyaa """
+    await message.send('にゃー')
 
 
-    @bot.command()
-    async def hello(ctx):
-        """ 挨拶を返す """
-        if message.author.bot:
-            return
-        else:
-            reply = f'こんにちは、{ctx.author.mention}プロデューサー。'
-            await ctx.channel.send(reply)
+@bot.command()
+async def hello(ctx):
+    """ 挨拶を返す """
+    if message.author.bot:
+        return
+    else:
+        reply = f'こんにちは、{ctx.author.mention}プロデューサー。'
+        await ctx.channel.send(reply)
 
 
-    @bot.command()
-    async def site(message):
-        """ 公式サイトへの案内 """
-        if message.author.bot:
-            return
-        else:
-            embed=discord.Embed(
-                                title='シャイニーカラーズ',
-                                url='https://shinycolors.idolmaster.jp/',
-                                description='公式サイトはこちらから',
-                                color=0x00f900)
-            embed.set_thumbnail(url='https://shinycolors.idolmaster.jp/pc/static/img/download/thumb_lantica_sakuya.png')
-            await message.send(embed=embed)
+@bot.command()
+async def site(message):
+    """ 公式サイトへの案内 """
+    if message.author.bot:
+        return
+    else:
+        embed=discord.Embed(
+                            title='シャイニーカラーズ',
+                            url='https://shinycolors.idolmaster.jp/',
+                            description='公式サイトはこちらから',
+                            color=0x00f900)
+        embed.set_thumbnail(url='https://shinycolors.idolmaster.jp/pc/static/img/download/thumb_lantica_sakuya.png')
+        await message.send(embed=embed)
 
 
-    @bot.command()
-    async def cleanup(message):
-        """ テキストチャンネル内のログが消える。 (管理者のみ)"""
-        if message.author.guild_permissions.administrator:
-            await message.channel.purge()
-            await message.channel.send('チャンネルを綺麗にしたよ。')
-        else:
-            await message.channel.send('管理者専用コマンドだよ。')
+@bot.command()
+async def cleanup(message):
+    """ テキストチャンネル内のログが消える。 (管理者のみ)"""
+    if message.author.guild_permissions.administrator:
+        await message.channel.purge()
+        await message.channel.send('チャンネルを綺麗にしたよ。')
+    else:
+        await message.channel.send('管理者専用コマンドだよ。')
 
 
     @bot.command()
@@ -78,31 +76,29 @@ async def create_channel(message, channel_name):
     return new_channel
 
 
-class Support(commands.Cog):
-    @bot.command()
-    async def support(message):
-        """管理人にサポートを受けるメッセージを送信する。"""
-        if message.author.bot:
-            return
-        else:
-            admin = await bot.fetch_user(ADMIN_ID)
-            msg = f'{message.author.mention} さんからサポートの依頼です。'
-            msg_reply = f'{message.author.mention} \n管理人にメッセージを送信しました。'
-            await admin.send(msg)
-            await message.channel.send(msg_reply)
+@bot.command()
+async def support(message):
+    """管理人にサポートを受けるメッセージを送信する。"""
+    if message.author.bot:
+        return
+    else:
+        admin = await bot.fetch_user(ADMIN_ID)
+        msg = f'{message.author.mention} さんからサポートの依頼です。'
+        msg_reply = f'{message.author.mention} \n管理人にメッセージを送信しました。'
+        await admin.send(msg)
+        await message.channel.send(msg_reply)
 
 
-class SystemAdmin(commands.Cog):
-    @bot.command()
-    async def stop(message):
-        """ Botを停止することができる(管理者のみ) """
-        if message.author.guild_permissions.administrator:
-            admin = await bot.fetch_user(ADMIN_ID)
-            msg = "🌙 status : Offline"
-            await admin.send(msg)
-            await bot.logout()
-        else:
-            await message.channel.send("管理者専用コマンドだよ。")
+@bot.command()
+async def stop(message):
+    """ Botを停止することができる(管理者のみ) """
+    if message.author.guild_permissions.administrator:
+        admin = await bot.fetch_user(ADMIN_ID)
+        msg = "🌙 status : Offline"
+        await admin.send(msg)
+        await bot.logout()
+    else:
+        await message.channel.send("管理者専用コマンドだよ。")
 
 @bot.event
 async def on_ready():
@@ -140,10 +136,5 @@ async def on_member_join(member):
 
 
 # bot.run('OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8')
-
-bot.add_cog(General(bot=bot))
-bot.add_cog(Support(bot=bot))
-bot.add_cog(SystemAdmin(bot=bot))
-bot.add_cog(Other(bot=bot))
 
 bot.run(token)
