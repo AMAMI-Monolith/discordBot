@@ -117,12 +117,12 @@ async def on_ready():
 async def on_command_error(message, error):
     if isinstance(error, CommandNotFound):
         message.channnel.send(message.content + " は未知のコマンドです。")
-        #await helps(message)
+        await help()
 
 
 @bot.command()
 async def help(message):
-    embed=discord.Embed(title="ヘルプ機能", description="コマンド説明", color=0xff9300)
+    embed=discord.Embed(title="ヘルプ機能", description="コマンドの説明。最初に『!』をつけてください。", color=0xff9300)
     embed.add_field(name="!hello", value="こんにちは。と返事する。", inline=True)
     embed.add_field(name="!site", value="『シャニマス公式』へのリンクを表示する。", inline=True)
     embed.add_field(name="!mkch", value="同カテゴリにテキストチャンネルを作成する。", inline=True)
