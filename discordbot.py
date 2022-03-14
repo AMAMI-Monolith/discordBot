@@ -130,54 +130,54 @@ async def on_command_error(message, error):
         "tts": false,
         "embeds": [
             {
-              "type": "rich",
-              "title": `Command List`,
-              "description": `コマンドの説明、最初に「!」を忘れずに`,
-              "color": 0xff5900,
-              "fields": [
-                {
-                  "name": `!hello`,
-                  "value": `挨拶を返す`,
-                  "inline": true
-                },
-                {
-                  "name": `!nya`,
-                  "value": `「nyaa」と返す`,
-                  "inline": true
-                },
-                {
-                  "name": `!site`,
-                  "value": `【シャニマス公式サイト】へのリンクを返す。`,
-                  "inline": true
-                },
-                {
-                  "name": `!mkch`,
-                  "value": `新しくテキストチャンネルを作る。`,
-                  "inline": true
-                },
-                {
-                  "name": `!support`,
-                  "value": `管理人にサポートを受けるメッセージを送信する。(DMに送信)`,
-                  "inline": true
-                },
-                {
-                  "name": `!stop`,
-                  "value": `このBotを停止できる。(管理人専用)`,
-                  "inline": true
-                },
-                {
-                  "name": `!cleanup`,
-                  "value": `入力したテキストチャンネルのメッセージが全て消える(管理人専用)`,
-                  "inline": true
-                }
-              ]
+                "type": "rich",
+                "title": 'Command List',
+                "description": 'コマンドの説明、最初に「!」を忘れずに',
+                "color": 0xff5900,
+                "fields": [
+                    {
+                        "name": '!hello',
+                        "value": '挨拶を返す',
+                        "inline": True
+                    },
+                    {
+                        "name": '!nya',
+                        "value": '「nyaa」と返す',
+                        "inline": True
+                    },
+                    {
+                        "name": '!site7',
+                        "value": '【シャニマス公式サイト】へのリンクを返す。',
+                        "inline": True
+                    },
+                    {
+                        "name": '!mkch',
+                        "value": '新しくテキストチャンネルを作る。',
+                        "inline": True
+                    },
+                    {
+                        "name": '!support',
+                        "value": '管理人にサポートを受けるメッセージを送信する。(DMに送信)',
+                        "inline": True
+                    },
+                    {
+                        "name": '!stop',
+                        "value": 'このBotを停止できる。(管理人専用)',
+                        "inline": True
+                    },
+                    {
+                        "name": '!cleanup',
+                        "value": '入力したテキストチャンネルのメッセージが全て消える(管理人専用)',
+                        "inline": True
+                    }
+                ]
             }
-          ]
+        ]
         fname="help.png " # アップロードするときのファイル名 自由に決めて良いですが、拡張子を忘れないように
         file = discord.File(fp="img",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
         embed.set_image(url=f"attachment://{fname}")
         await message.channel.send(file=file, embed=embed)
-        
+
 
 bot.run('OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8')
 
