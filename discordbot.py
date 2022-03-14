@@ -122,58 +122,12 @@ async def on_ready():
     msg = "🔴 status : Online"
     await admin.send(msg)
 
-@bot.command()
-async def helps(message):
-    embed=discord.Embed(
-        "title": 'Command List',
-        "description": 'コマンドの説明、最初に「!」を忘れずに',
-        "color": 0xff5900,
-    )
-    embed.add_fields(
-        "name": '!hello',
-        "value": '挨拶を返す',
-        "inline": True
-    ),
-    embed.add_fields(
-            "name": '!nya',
-            "value": '「nyaa」と返す',
-            "inline": True
-    ),
-    embed.add_fields(
-            "name": '!site7',
-            "value": '【シャニマス公式サイト】へのリンクを返す。',
-            "inline": True
-    ),
-    embed.add_fields(
-            "name": '!mkch',
-            "value": '新しくテキストチャンネルを作る。',
-            "inline": True
-    ),
-    embed.add_fields(
-            "name": '!support',
-            "value": '管理人にサポートを受けるメッセージを送信する。(DMに送信)',
-            "inline": True
-    ),
-    embed.add_fields(
-            "name": '!stop',
-            "value": 'このBotを停止できる。(管理人専用)',
-            "inline": True
-    ),
-    embed.add_fields(
-            "name": '!cleanup',
-            "value": '入力したテキストチャンネルのメッセージが全て消える(管理人専用)',
-            "inline": True
-    )   
-    fname="help.png " # アップロードするときのファイル名 自由に決めて良いですが、拡張子を忘れないように
-    file = discord.File(fp="img/help.png",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
-    embed.set_image(url=f"attachment://{fname}")
-    await message.channel.send(file=file, embed=embed)
 
 @bot.event
 async def on_command_error(message, error):
     if isinstance(error, CommandNotFound):
-        print(message.message.content + " は未知のコマンドです。")
-        await helps(message)
+        message.channnel.send(message.content + " は未知のコマンドです。")
+        #await helps(message)
         
 
 
