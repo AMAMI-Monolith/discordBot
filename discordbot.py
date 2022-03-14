@@ -9,6 +9,15 @@ bot = commands.Bot(command_prefix = "!")
 ADMIN_ID = '260333442489647105'
 token = getenv('DISCORD_BOT_TOKEN')
 
+
+@bot.command()
+async def support(message):
+    """"管理人にサポートを受けるメッセージを送信する。"""
+        admin = await bot.fetch_user(ADMIN_ID)
+        msg = f'{message.author.name}さんからサポートの依頼です。'
+        await admin.send(msg)
+
+
 @bot.command()
 async def nya(ctx):
     """ テスト:nyaa """
