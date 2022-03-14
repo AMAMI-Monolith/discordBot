@@ -55,16 +55,16 @@ async def cleanup(message):
         await message.channel.send('管理者専用コマンドだよ。')
 
 
-    @bot.command()
-    async def mkch(message):
-        """ 発言したチャンネルのカテゴリ内に新規テキストチャンネルを作成。 """
-        if message.author.bot:
-            return
-        else:
-            new_channel = await create_channel(message, channel_name = message.author.name)
-            # チャンネルのリンクと作成メッセージを送信
-            text = f'{new_channel.mention} を作成したよ。'
-            await message.channel.send(text)
+@bot.command()
+async def mkch(message):
+    """ 発言したチャンネルのカテゴリ内に新規テキストチャンネルを作成。 """
+    if message.author.bot:
+        return
+    else:
+        new_channel = await create_channel(message, channel_name = message.author.name)
+        # チャンネルのリンクと作成メッセージを送信
+        text = f'{new_channel.mention} を作成したよ。'
+        await message.channel.send(text)
 
 
 @bot.event
@@ -119,6 +119,19 @@ async def on_command_error(message, error):
         message.channnel.send(message.content + " は未知のコマンドです。")
         #await helps(message)
 
+
+@bot.command()
+async def help(message):
+    embed=discord.Embed(title="ヘルプ機能", description="コマンド説明", color=0xff9300)
+    embed.add_field(name="!hello", value="こんにちは。と返事する。", inline=True)
+    embed.add_field(name="!site", value="『シャニマス公式』へのリンクを表示する。", inline=True)
+    embed.add_field(name="!mkch", value="同カテゴリにテキストチャンネルを作成する。", inline=True)
+    embed.add_field(name="!Support", value="管理人にサポートメッセージを送る(DM)", inline=True)
+    embed.add_field(name="!cleanup (※管理人のみ)", value="テキストチャンネルのメッセージ", inline=True)
+    fname="help.png " # アップロードするときのファイル名 自由に決めて良いですが、拡張子を忘れないように
+    file = discord.File(fp="img",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
+    embed.set_image(url=f"attachment://{fname}") # embedに画像を埋め込むときのURLはattachment://ファイル名
+    await message.channel.send(file=file, embed=embed) # ファイルとembedを両方添えて送信する
 
 @bot.event
 async def on_member_join(member):
