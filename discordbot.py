@@ -165,7 +165,7 @@ async def help(message):
             "inline": True
     )   
     fname="help.png " # アップロードするときのファイル名 自由に決めて良いですが、拡張子を忘れないように
-    file = discord.File(fp="img",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
+    file = discord.File(fp="img/help.png",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
     embed.set_image(url=f"attachment://{fname}")
     await message.channel.send(file=file, embed=embed)
 
