@@ -123,7 +123,7 @@ async def on_ready():
     await admin.send(msg)
 
 @bot.command()
-async def help(message):
+async def helps(message):
     embed=discord.Embed(
         "title": 'Command List',
         "description": 'コマンドの説明、最初に「!」を忘れずに',
