@@ -5,65 +5,66 @@ from discord.utils import get
 from os import getenv
 
 
-@bot.command()
-async def nya(message):
-    """ テスト:nyaa """
-    await message.send('にゃー')
+class General(commands.Cog):
+    @bot.command()
+    async def nya(message):
+        """ テスト:nyaa """
+        await message.send('にゃー')
 
 
-@bot.command()
-async def hello(ctx):
-    """ 挨拶を返す """
-    if message.author.bot:
-        return
-    else:
-        reply = f'こんにちは、{ctx.author.mention}プロデューサー。'
-        await ctx.channel.send(reply)
+    @bot.command()
+    async def hello(ctx):
+        """ 挨拶を返す """
+        if message.author.bot:
+            return
+        else:
+            reply = f'こんにちは、{ctx.author.mention}プロデューサー。'
+            await ctx.channel.send(reply)
 
 
-@bot.command()
-async def site(message):
-    """ 公式サイトへの案内 """
-    if message.author.bot:
-        return
-    else:
-        embed=discord.Embed(
-                            title='シャイニーカラーズ',
-                            url='https://shinycolors.idolmaster.jp/',
-                            description='公式サイトはこちらから',
-                            color=0x00f900)
-        embed.set_thumbnail(url='https://shinycolors.idolmaster.jp/pc/static/img/download/thumb_lantica_sakuya.png')
-        await message.send(embed=embed)
+    @bot.command()
+    async def site(message):
+        """ 公式サイトへの案内 """
+        if message.author.bot:
+            return
+        else:
+            embed=discord.Embed(
+                                title='シャイニーカラーズ',
+                                url='https://shinycolors.idolmaster.jp/',
+                                description='公式サイトはこちらから',
+                                color=0x00f900)
+            embed.set_thumbnail(url='https://shinycolors.idolmaster.jp/pc/static/img/download/thumb_lantica_sakuya.png')
+            await message.send(embed=embed)
 
 
-@bot.command()
-async def cleanup(message):
-    """ テキストチャンネル内のログが消える。 (管理者のみ)"""
-    if message.author.guild_permissions.administrator:
-        await message.channel.purge()
-        await message.channel.send('チャンネルを綺麗にしたよ。')
-    else:
-        await message.channel.send('管理者専用コマンドだよ。')
+    @bot.command()
+    async def cleanup(message):
+        """ テキストチャンネル内のログが消える。 (管理者のみ)"""
+        if message.author.guild_permissions.administrator:
+            await message.channel.purge()
+            await message.channel.send('チャンネルを綺麗にしたよ。')
+        else:
+            await message.channel.send('管理者専用コマンドだよ。')
 
 
-@bot.event
-async def create_channel(message, channel_name):
-    # 下のmkchから呼ばれる新規テキストチャンネルを作成する。
-    category_id = message.channel.category_id
-    category = message.guild.get_channel(category_id)
-    new_channel = await category.create_text_channel(name=channel_name)
-    return new_channel
+    @bot.event
+    async def create_channel(message, channel_name):
+        # 下のmkchから呼ばれる新規テキストチャンネルを作成する。
+        category_id = message.channel.category_id
+        category = message.guild.get_channel(category_id)
+        new_channel = await category.create_text_channel(name=channel_name)
+        return new_channel
 
-@bot.command()
-async def mkch(message):
-    """ 発言したチャンネルのカテゴリ内に新規テキストチャンネルを作成。 """
-    if message.author.bot:
-        return
-    else:
-        new_channel = await create_channel(message, channel_name = message.author.name)
-        # チャンネルのリンクと作成メッセージを送信
-        text = f'{new_channel.mention} を作成したよ。'
-        await message.channel.send(text)
+    @bot.command()
+    async def mkch(message):
+        """ 発言したチャンネルのカテゴリ内に新規テキストチャンネルを作成。 """
+        if message.author.bot:
+            return
+        else:
+            new_channel = await create_channel(message, channel_name = message.author.name)
+            # チャンネルのリンクと作成メッセージを送信
+            text = f'{new_channel.mention} を作成したよ。'
+            await message.channel.send(text)
 
 
 
@@ -118,10 +119,10 @@ class Other(commands.Cog):
     async def on_member_join(member):
         # ユーザのサーバーへの参加を検知し、埋め込みでログを残す。
         guild = member.guild
-        ready=discord.utils.get(guild.text_channels, name="はじめに") #946633117651836978
-        rule =discord.utils.get(guild.text_channels, name="サーバールール") #945589161509941279
+        ready =discord.utils.get(guild.text_channels, name="はじめに") #946633117651836978
+        rule  =discord.utils.get(guild.text_channels, name="サーバールール") #945589161509941279
         channel=discord.utils.get(guild.text_channels, name="入室ログ")
-        embed=discord.Embed(title=f'{member.author.name} さんが参加しました', color=0x00ffff)
+        embed =discord.Embed(title=f'{member.author.name} さんが参加しました', color=0x00ffff)
         embed.set_thumbnail(url=member.author.avatar_url)
         embed.add_field(name="name", value=f'{member.author.mention}', inline=False)
         await channel.send(f'{member.author.mention}\nようこそ、{ready.mention} と {rule.mention} を最初にお読みください。',
@@ -139,6 +140,9 @@ bot = commands.Bot(
     case_insensitive=True #コマンドの大文字小文字を無視する(True)
     help_command = None #標準のhelpコマンドを無効化する(None)
 )
-bot.add_cog(Greet(bot=bot))
+bot.add_cog(General(bot=bot))
+bot.add_cog(Support(bot=bot))
+bot.add_cog(SystemAdmin(bot=bot))
+bot.add_cog(Other(bot=bot))
 
 bot.run(token)
