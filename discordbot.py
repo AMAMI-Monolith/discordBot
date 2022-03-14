@@ -122,7 +122,7 @@ async def on_ready():
     msg = "🔴 status : Online"
     await admin.send(msg)
 
-@bot.event
+@bot.command()
 async def help(message):
     "embeds": [
         {
@@ -178,7 +178,7 @@ async def help(message):
 async def on_command_error(message, error):
     if isinstance(error, CommandNotFound):
         print(message.message.content + " は未知のコマンドです。")
-        await help()
+        await help(message)
         
 
 
