@@ -12,7 +12,7 @@ token = getenv('DISCORD_BOT_TOKEN')
 
 @bot.command()
 async def support(message):
-    """"管理人にサポートを受けるメッセージを送信する。"""
+    """管理人にサポートを受けるメッセージを送信する。"""
     if message.author.bot:
         return
     else:
@@ -24,9 +24,9 @@ async def support(message):
 
 
 @bot.command()
-async def nya(ctx):
+async def nya(message):
     """ テスト:nyaa """
-    await ctx.send('にゃー')
+    await message.send('にゃー')
 
 
 @bot.command()
@@ -40,7 +40,7 @@ async def hello(ctx):
 
 
 @bot.command()
-async def site(ctx):
+async def site(message):
     """ 公式サイトへの案内 """
     if message.author.bot:
         return
@@ -51,17 +51,17 @@ async def site(ctx):
                             description='公式サイトはこちらから',
                             color=0x00f900)
         embed.set_thumbnail(url='https://shinycolors.idolmaster.jp/pc/static/img/download/thumb_lantica_sakuya.png')
-        await ctx.send(embed=embed)
+        await message.send(embed=embed)
 
 
 @bot.command()
-async def cleanup(ctx):
+async def cleanup(message):
     """ テキストチャンネル内のログが消える。 (管理者のみ)"""
-    if ctx.author.guild_permissions.administrator:
-        await ctx.channel.purge()
-        await ctx.channel.send('チャンネルを綺麗にしたよ。')
+    if message.author.guild_permissions.administrator:
+        await message.channel.purge()
+        await message.channel.send('チャンネルを綺麗にしたよ。')
     else:
-        await ctx.channel.send('管理者専用コマンドだよ。')
+        await message.channel.send('管理者専用コマンドだよ。')
 
 
 @bot.event
@@ -72,17 +72,16 @@ async def create_channel(message, channel_name):
     new_channel = await category.create_text_channel(name=channel_name)
     return new_channel
 
-
 @bot.command()
-async def mkch(ctx):
+async def mkch(message):
     """ 発言したチャンネルのカテゴリ内に新規テキストチャンネルを作成。 """
     if message.author.bot:
         return
     else:
-        new_channel = await create_channel(ctx, channel_name = ctx.author.name)
+        new_channel = await create_channel(message, channel_name = message.author.name)
         # チャンネルのリンクと作成メッセージを送信
         text = f'{new_channel.mention} を作成したよ。'
-        await ctx.channel.send(text)
+        await message.channel.send(text)
 
 
 @bot.event
@@ -124,12 +123,61 @@ async def on_ready():
     await admin.send(msg)
 
 
-@bot.event
-async def on_command_error(ctx, error):
-    orig_error = getattr(error, "original", error)
-    error_msg = ''.join(traceback.TracebackException.from_exception(orig_error).format())
-    await ctx.send(error_msg)
-
+@client.event
+async def on_command_error(message, error):
+    if isinstance(error, CommandNotFound):
+        print(message.message.content + " は未知のコマンドです。")
+        "tts": false,
+        "embeds": [
+            {
+              "type": "rich",
+              "title": `Command List`,
+              "description": `コマンドの説明、最初に「!」を忘れずに`,
+              "color": 0xff5900,
+              "fields": [
+                {
+                  "name": `!hello`,
+                  "value": `挨拶を返す`,
+                  "inline": true
+                },
+                {
+                  "name": `!nya`,
+                  "value": `「nyaa」と返す`,
+                  "inline": true
+                },
+                {
+                  "name": `!site`,
+                  "value": `【シャニマス公式サイト】へのリンクを返す。`,
+                  "inline": true
+                },
+                {
+                  "name": `!mkch`,
+                  "value": `新しくテキストチャンネルを作る。`,
+                  "inline": true
+                },
+                {
+                  "name": `!support`,
+                  "value": `管理人にサポートを受けるメッセージを送信する。(DMに送信)`,
+                  "inline": true
+                },
+                {
+                  "name": `!stop`,
+                  "value": `このBotを停止できる。(管理人専用)`,
+                  "inline": true
+                },
+                {
+                  "name": `!cleanup`,
+                  "value": `入力したテキストチャンネルのメッセージが全て消える(管理人専用)`,
+                  "inline": true
+                }
+              ]
+            }
+          ]
+        fname="help.png " # アップロードするときのファイル名 自由に決めて良いですが、拡張子を忘れないように
+        file = discord.File(fp="img",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
+        embed.set_image(url=f"attachment://{fname}")
+        await message.channel.send(file=file, embed=embed)
+        
 
 bot.run('OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8')
 
