@@ -14,7 +14,7 @@ token = getenv('DISCORD_BOT_TOKEN')
 async def support(message):
     """"管理人にサポートを受けるメッセージを送信する。"""
     admin = await bot.fetch_user(ADMIN_ID)
-    msg = f'{message.author.name}さんからサポートの依頼です。'
+    msg = f'{message.author.mention} さんからサポートの依頼です。'
     await admin.send(msg)
 
 
