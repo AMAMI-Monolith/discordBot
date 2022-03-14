@@ -115,9 +115,12 @@ async def on_ready():
 
 @bot.event
 async def on_command_error(message, error):
-    if isinstance(error, CommandNotFound):
+    if message.author.bot:
+        return
+    else:
+        isinstance(error, CommandNotFound):
         message.channnel.send(message.content + " は未知のコマンドです。")
-        await help()
+        await help(message)
 
 
 @bot.command()
