@@ -57,14 +57,6 @@ class General(commands.Cog):
             await message.channel.send('管理者専用コマンドだよ。')
 
 
-    @bot.event
-    async def create_channel(message, channel_name):
-        # 下のmkchから呼ばれる新規テキストチャンネルを作成する。
-        category_id = message.channel.category_id
-        category = message.guild.get_channel(category_id)
-        new_channel = await category.create_text_channel(name=channel_name)
-        return new_channel
-
     @bot.command()
     async def mkch(message):
         """ 発言したチャンネルのカテゴリ内に新規テキストチャンネルを作成。 """
@@ -76,6 +68,14 @@ class General(commands.Cog):
             text = f'{new_channel.mention} を作成したよ。'
             await message.channel.send(text)
 
+
+@bot.event
+async def create_channel(message, channel_name):
+    # 下のmkchから呼ばれる新規テキストチャンネルを作成する。
+    category_id = message.channel.category_id
+    category = message.guild.get_channel(category_id)
+    new_channel = await category.create_text_channel(name=channel_name)
+    return new_channel
 
 
 class Support(commands.Cog):
@@ -104,39 +104,38 @@ class SystemAdmin(commands.Cog):
         else:
             await message.channel.send("管理者専用コマンドだよ。")
 
-class Other(commands.Cog):
-    @bot.event
-    async def on_ready():
-        # このbotのサーバーにオンラインになった時に管理人にDM(ダイレクトメッセージ)を送信する。
-        print('------')
-        print('Login infomation>>>')
-        print(f'{bot.user.name}がログインしたよ。')
-        print('------')
-        await bot.change_presence(activity=discord.Game(name="!help"))
-        admin = await bot.fetch_user(ADMIN_ID)
-        msg = "🔴 status : Online"
-        await admin.send(msg)
+@bot.event
+async def on_ready():
+    # このbotのサーバーにオンラインになった時に管理人にDM(ダイレクトメッセージ)を送信する。
+    print('------')
+    print('Login infomation>>>')
+    print(f'{bot.user.name}がログインしたよ。')
+    print('------')
+    await bot.change_presence(activity=discord.Game(name="!help"))
+    admin = await bot.fetch_user(ADMIN_ID)
+    msg = "🔴 status : Online"
+    await admin.send(msg)
 
 
-    @bot.event
-    async def on_command_error(message, error):
-        if isinstance(error, CommandNotFound):
-            message.channnel.send(message.content + " は未知のコマンドです。")
-            #await helps(message)
+@bot.event
+async def on_command_error(message, error):
+    if isinstance(error, CommandNotFound):
+        message.channnel.send(message.content + " は未知のコマンドです。")
+        #await helps(message)
 
 
-    @bot.event
-    async def on_member_join(member):
-        # ユーザのサーバーへの参加を検知し、埋め込みでログを残す。
-        guild = member.guild
-        ready =discord.utils.get(guild.text_channels, name="はじめに") #946633117651836978
-        rule  =discord.utils.get(guild.text_channels, name="サーバールール") #945589161509941279
-        channel=discord.utils.get(guild.text_channels, name="入室ログ")
-        embed =discord.Embed(title=f'{member.author.name} さんが参加しました', color=0x00ffff)
-        embed.set_thumbnail(url=member.author.avatar_url)
-        embed.add_field(name="name", value=f'{member.author.mention}', inline=False)
-        await channel.send(f'{member.author.mention}\nようこそ、{ready.mention} と {rule.mention} を最初にお読みください。',
-                            embed=embed)
+@bot.event
+async def on_member_join(member):
+    # ユーザのサーバーへの参加を検知し、埋め込みでログを残す。
+    guild = member.guild
+    ready =discord.utils.get(guild.text_channels, name="はじめに") #946633117651836978
+    rule  =discord.utils.get(guild.text_channels, name="サーバールール") #945589161509941279
+    channel=discord.utils.get(guild.text_channels, name="入室ログ")
+    embed =discord.Embed(title=f'{member.author.name} さんが参加しました', color=0x00ffff)
+    embed.set_thumbnail(url=member.author.avatar_url)
+    embed.add_field(name="name", value=f'{member.author.mention}', inline=False)
+    await channel.send(f'{member.author.mention}\nようこそ、{ready.mention} と {rule.mention} を最初にお読みください。',
+                        embed=embed)
         
 
 
