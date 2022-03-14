@@ -119,22 +119,24 @@ async def on_command_error(message, error):
         return
     else:
         isinstance(error, CommandNotFound):
-        message.channnel.send(message.content + " は未知のコマンドです。")
-        await help(message)
+        message.channnel.send(message.content + " は未知のコマンドです。\n!helpでコマンドを確認してください。")
 
 
 @bot.command()
 async def help(message):
-    embed=discord.Embed(title="ヘルプ機能", description="コマンドの説明。最初に『!』をつけてください。", color=0xff9300)
-    embed.add_field(name="!hello", value="こんにちは。と返事する。", inline=True)
-    embed.add_field(name="!site", value="『シャニマス公式』へのリンクを表示する。", inline=True)
-    embed.add_field(name="!mkch", value="同カテゴリにテキストチャンネルを作成する。", inline=True)
-    embed.add_field(name="!Support", value="管理人にサポートメッセージを送る(DM)", inline=False)
-    embed.add_field(name="!cleanup (※管理人のみ)", value="テキストチャンネルのメッセージ", inline=False)
-    fname="help.png " # アップロードするときのファイル名 自由に決めて良いですが、拡張子を忘れないように
-    file = discord.File(fp="img/help.png",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
-    embed.set_image(url=f"attachment://{fname}") # embedに画像を埋め込むときのURLはattachment://ファイル名
-    await message.channel.send(file=file, embed=embed) # ファイルとembedを両方添えて送信する
+    if message.author.bot:
+        return
+    else:
+        embed=discord.Embed(title="ヘルプ機能", description="コマンドの説明。最初に『!』をつけてください。", color=0xff9300)
+        embed.add_field(name="!hello", value="こんにちは。と返事する。", inline=True)
+        embed.add_field(name="!site", value="『シャニマス公式』へのリンクを表示する。", inline=True)
+        embed.add_field(name="!mkch", value="同カテゴリにテキストチャンネルを作成する。", inline=True)
+        embed.add_field(name="!Support", value="管理人にサポートメッセージを送る(DM)", inline=False)
+        embed.add_field(name="!cleanup (※管理人のみ)", value="テキストチャンネルのメッセージ", inline=False)
+        fname="help.png " # アップロードするときのファイル名 自由に決めて良いですが、拡張子を忘れないように
+        file = discord.File(fp="img/help.png",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
+        embed.set_image(url=f"attachment://{fname}") # embedに画像を埋め込むときのURLはattachment://ファイル名
+        await message.channel.send(file=file, embed=embed) # ファイルとembedを両方添えて送信する
 
 
 @bot.event
