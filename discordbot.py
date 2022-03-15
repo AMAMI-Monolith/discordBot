@@ -1,7 +1,9 @@
 import discord
 import traceback
 from discord.ext import commands
+from discord_buttons_plugin import *
 from discord.utils import get
+from dislash import InteractionClient, SelectMenu, SelectOption
 from os import getenv
 
 # Botの起動とDiscordサーバーへの接続
@@ -13,6 +15,9 @@ bot = commands.Bot(
     case_insensitive=True, #コマンドの大文字小文字を無視する(True)
     help_command = None #標準のhelpコマンドを無効化する(None)
 )
+buttons = ButtonsClient(bot)
+slash = InteractionClient(bot)
+
 
 @bot.command()
 async def nya(message):
@@ -36,8 +41,15 @@ async def site(message):
     if message.author.bot:
         return
     else:
+        embed=discord.Embed(
+            title = "公式サイト や 関連リンク",
+            color = 0xff4d00
+        ) 
+        fname="logo.png "
+        file = discord.File(fp="img/logo.png",filename=fname,spoiler=False)
+        embed.set_image(url=f"attachment://{fname}")
+        await message.send(file=file, embed=embed)
         await buttons.send(
-            "テストボタン",
             channel = message.channel.id,
             components = [
                 ActionRow([
@@ -67,43 +79,7 @@ async def site(message):
                     )
                 ])
             ]
-        ),
-        embed: [
-            {
-            title : "公式サイト や 関連リンク",
-            color : 0xff4d00
-            }
-        ]
-        fname="logo.png " # アップロードするときのファイル名 自由に決めて良いですが、拡張子を忘れないように
-        file = discord.File(fp="img/logo.png",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
-        embed.set_image(url=f"attachment://{fname}") # embedに画像を埋め込むときのURLはattachment://ファイル名
-        await message.send(file=file, embed=embed)
-
-
-
-"""
-        embed=discord.Embed(
-                            title='シャイニーカラーズ',
-                            url='https://shinycolors.idolmaster.jp/',
-                            description='公式サイトはこちらから',
-                            color=0x00f900
         )
-        embed.set_thumbnail(url='https://shinycolors.idolmaster.jp/pc/static/img/download/thumb_lantica_sakuya.png')
-        await message.send(embed=embed)
-        await buttons.send(
-            "テストメッセージ",
-            channel = message.channel.id,
-            components = [
-                ActionRow([
-                    Button(
-                        label="サイトへ", 
-                        style=ButtonType().Link, 
-                        url = "https://shinycolors.idolmaster.jp/"
-                    )
-                ])
-            ]
-        )
-"""
 
 
 @bot.command()
@@ -210,8 +186,5 @@ async def on_member_join(member):
     await channel.send(f'{member.author.mention}\nようこそ、{ready.mention} と {rule.mention} を最初にお読みください。',
                         embed=embed)
         
-
-
-# bot.run('OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8')
 
 bot.run(token)
