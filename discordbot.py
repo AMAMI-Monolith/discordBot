@@ -43,23 +43,20 @@ async def site(message):
                             color=0x00f900
         )
         embed.set_thumbnail(url='https://shinycolors.idolmaster.jp/pc/static/img/download/thumb_lantica_sakuya.png')
-        buttons = [
-            "components": [
-                {
-                    "type": 1,
-                    "components": [
-                        {
-                            "style": 5,
-                            "label": `公式サイト`,
-                            "url": `https://shinycolors.idolmaster.jp/`,
-                            "disabled": false,
-                            "type": 2
-                        }
-                    ]
-                }
+        await message.send(embed=embed)
+        await buttons.send(
+        channel = message.channel.id,
+            components = [
+                ActionRow([
+                    Button(
+                        label="サイトへ", 
+                        style=ButtonType().Link, 
+                        url = "https://shinycolors.idolmaster.jp/",
+                        disabled = False
+                    )
+                ])
             ]
-        ]
-        await message.send(embed=embed ,buttons=buttons)
+        )
         
 
 
