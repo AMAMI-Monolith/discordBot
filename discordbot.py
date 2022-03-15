@@ -190,5 +190,4 @@ async def on_member_join(member):
                         embed=embed)
         
 
-bot.run('OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8')
-#bot.run(token)
+bot.run(token)
