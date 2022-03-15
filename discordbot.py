@@ -147,7 +147,10 @@ async def on_ready():
     await bot.change_presence(activity=discord.Game(name="!help"))
     admin = await bot.fetch_user(ADMIN_ID)
     msg = "🔴 status : Online"
-    await admin.send(msg)
+    fname="BotOnline.png "
+    file = discord.File(fp="img/BotOnline.png",filename=fname,spoiler=False) 
+    embed.set_image(url=f"attachment://{fname}")
+    await admin.send(file=file, msg)
 
 
 @bot.event
