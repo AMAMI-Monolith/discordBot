@@ -37,36 +37,50 @@ async def site(message):
         return
     else:
         await buttons.send(
-            "テストボタン",
-            channel = message.channel.id,
             components = [
-                {
-                style: 5,
-                label: "公式サイト",
-                url: 'https://shinycolors.idolmaster.jp/',
-                disabled: False
-                },
-                {
-                style: 5,
-                label: "お知らせ",
-                url: 'https://shinycolors.idolmaster.jp/news/',
-                disabled: False
-                },
-                {
-                style: 5,
-                label: "はばたきラジオステーション",
-                url: 'https://asobistore.jp/content/title/Idolmaster/shinyradio/',
-                disabled: False
-                },
-                {
-                style: 5,
-                label: "公式Twitter",
-                url: 'https://twitter.com/imassc_official/',
-                disabled: False
-                }
+                ActionRow([
+                    Button(
+                        label="ボタン", 
+                        style=ButtonType().Danger, 
+                        custom_id="button_clicked",
+                        disabled = False
+                    )
+                ])
+            ]
+        )
+        await buttons.send(
+            "テストボタン",
+            channel = ctx.channel.id,
+            components = [
+                ActionRow([
+                    Button(
+                        style   = ButtonType().Link,
+                        label   = "公式サイト",
+                        url     = 'https://shinycolors.idolmaster.jp/',
+                        disabled= False
+                    ),
+                    Button(
+                        style   = ButtonType().Link,
+                        label   = "お知らせ",
+                        url     = 'https://shinycolors.idolmaster.jp/news/',
+                        disabled= False
+                    ),
+                    Button(
+                        style   = ButtonType().Link,
+                        label   = "はばたきラジオステーション",
+                        url     = 'https://asobistore.jp/content/title/Idolmaster/shinyradio/',
+                        disabled= False
+                    ),
+                    Button(
+                        style   = ButtonType().Link,
+                        label   = "公式Twitter",
+                        url     = 'https://twitter.com/imassc_official/',
+                        disabled= False
+                    )
+                ])
             ]
         ),
-        embeds: [
+        embed: [
             {
             title : "公式サイト や 関連リンク",
             color : 0xff4d00
@@ -75,7 +89,7 @@ async def site(message):
         fname="logo.png " # アップロードするときのファイル名 自由に決めて良いですが、拡張子を忘れないように
         file = discord.File(fp="img/logo.png",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
         embed.set_image(url=f"attachment://{fname}") # embedに画像を埋め込むときのURLはattachment://ファイル名
-        await message.send(file=file, embed=embed)
+        await message.send(file=file, embed=embed, button=button)
 
 
 
