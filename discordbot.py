@@ -45,13 +45,14 @@ async def site(message):
         embed.set_thumbnail(url='https://shinycolors.idolmaster.jp/pc/static/img/download/thumb_lantica_sakuya.png')
         await message.send(embed=embed)
         await buttons.send(
+            "テストメッセージ",
             channel = message.channel.id,
             components = [
                 ActionRow([
                     Button(
                         label="サイトへ", 
                         style=ButtonType().Link, 
-                        url = "https://shinycolors.idolmaster.jp/",
+                        url = "https://shinycolors.idolmaster.jp/"
                     )
                 ])
             ]
