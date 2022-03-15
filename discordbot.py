@@ -26,13 +26,13 @@ async def nya(message):
 
 
 @bot.command()
-async def hello(ctx):
+async def hello(message):
     """ 挨拶を返す """
     if message.author.bot:
         return
     else:
-        reply = f'こんにちは、{ctx.author.mention}プロデューサー。'
-        await ctx.channel.send(reply)
+        reply = f'こんにちは、{message.author.mention}プロデューサー。'
+        await message.channel.send(reply)
 
 
 @bot.command()
