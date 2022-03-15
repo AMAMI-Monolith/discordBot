@@ -150,7 +150,7 @@ async def on_ready():
     fname="BotOnline.png "
     file = discord.File(fp="img/BotOnline.png",filename=fname,spoiler=False) 
     embed.set_image(url=f"attachment://{fname}")
-    await admin.send(file=file, msg)
+    await admin.send(file, msg)
 
 
 @bot.event
