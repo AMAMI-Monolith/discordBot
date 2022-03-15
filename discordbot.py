@@ -37,20 +37,8 @@ async def site(message):
         return
     else:
         await buttons.send(
-            components = [
-                ActionRow([
-                    Button(
-                        label="ボタン", 
-                        style=ButtonType().Danger, 
-                        custom_id="button_clicked",
-                        disabled = False
-                    )
-                ])
-            ]
-        )
-        await buttons.send(
             "テストボタン",
-            channel = ctx.channel.id,
+            channel = message.channel.id,
             components = [
                 ActionRow([
                     Button(
@@ -89,7 +77,7 @@ async def site(message):
         fname="logo.png " # アップロードするときのファイル名 自由に決めて良いですが、拡張子を忘れないように
         file = discord.File(fp="img/logo.png",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
         embed.set_image(url=f"attachment://{fname}") # embedに画像を埋め込むときのURLはattachment://ファイル名
-        await message.send(file=file, embed=embed, button=button)
+        await message.send(file=file, embed=embed)
 
 
 
