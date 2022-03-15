@@ -37,8 +37,8 @@ async def site(message):
         return
     else:
         await buttons.send(
-            {
-            channel = message.channel.id
+            "テストボタン",
+            channel = message.channel.id,
             components = [
                 {
                 style: 5,
@@ -65,9 +65,8 @@ async def site(message):
                 disabled: False
                 }
             ]
-            }
         ),
-        "embeds": [
+        embeds: [
             {
             title : "公式サイト や 関連リンク",
             color : 0xff4d00
@@ -80,7 +79,7 @@ async def site(message):
 
 
 
-
+"""
         embed=discord.Embed(
                             title='シャイニーカラーズ',
                             url='https://shinycolors.idolmaster.jp/',
@@ -102,7 +101,7 @@ async def site(message):
                 ])
             ]
         )
-        
+"""
 
 
 @bot.command()
