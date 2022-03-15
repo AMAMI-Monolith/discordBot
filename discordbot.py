@@ -40,7 +40,24 @@ async def site(message):
                             title='シャイニーカラーズ',
                             url='https://shinycolors.idolmaster.jp/',
                             description='公式サイトはこちらから',
-                            color=0x00f900)
+                            color=0x00f900
+        )
+        await buttons.send(
+            "components": [
+                {
+                    "type": 1,
+                    "components": [
+                        {
+                            "style": 5,
+                            "label": `公式サイト`,
+                            "url": `https://shinycolors.idolmaster.jp/`,
+                            "disabled": false,
+                            "type": 2
+                        }
+                    ]
+                }
+            ]
+        )
         embed.set_thumbnail(url='https://shinycolors.idolmaster.jp/pc/static/img/download/thumb_lantica_sakuya.png')
         await message.send(embed=embed)
 
