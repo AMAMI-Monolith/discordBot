@@ -36,6 +36,51 @@ async def site(message):
     if message.author.bot:
         return
     else:
+        await buttons.send(
+            {
+            channel = message.channel.id
+            components = [
+                {
+                style: 5,
+                label: "公式サイト",
+                url: 'https://shinycolors.idolmaster.jp/',
+                disabled: False
+                },
+                {
+                style: 5,
+                label: "お知らせ",
+                url: 'https://shinycolors.idolmaster.jp/news/',
+                disabled: False
+                },
+                {
+                style: 5,
+                label: "はばたきラジオステーション",
+                url: 'https://asobistore.jp/content/title/Idolmaster/shinyradio/',
+                disabled: False
+                },
+                {
+                style: 5,
+                label: "公式Twitter",
+                url: 'https://twitter.com/imassc_official/',
+                disabled: False
+                }
+            ]
+            }
+        ),
+        "embeds": [
+            {
+            title : "公式サイト や 関連リンク",
+            color : 0xff4d00
+            }
+        ]
+        fname="logo.png " # アップロードするときのファイル名 自由に決めて良いですが、拡張子を忘れないように
+        file = discord.File(fp="img/logo.png",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
+        embed.set_image(url=f"attachment://{fname}") # embedに画像を埋め込むときのURLはattachment://ファイル名
+        await message.send(file=file, embed=embed)
+
+
+
+
         embed=discord.Embed(
                             title='シャイニーカラーズ',
                             url='https://shinycolors.idolmaster.jp/',
