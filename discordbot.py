@@ -146,11 +146,11 @@ async def on_ready():
     print('------')
     await bot.change_presence(activity=discord.Game(name="!help"))
     admin = await bot.fetch_user(ADMIN_ID)
-    msg = "🔴 status : Online"
-    fname="BotOnline.png "
+    embed = discord.Embed(title="Botがオンラインになりました。", color=0x29f306)
+    fname="BotOnline.png"
     file = discord.File(fp="img/BotOnline.png",filename=fname,spoiler=False) 
     embed.set_image(url=f"attachment://{fname}")
-    await admin.send(file, msg)
+    await admin.send(embed=embed)
 
 
 @bot.event
@@ -190,4 +190,5 @@ async def on_member_join(member):
                         embed=embed)
         
 
-bot.run(token)
+bot.run('OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8')
+#bot.run(token)
