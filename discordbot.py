@@ -166,7 +166,7 @@ async def help(message):
     else:
         embed=discord.Embed(title="ヘルプ機能", description="コマンドの説明。最初に『!』をつけてください。", color=0xff9300)
         embed.add_field(name="!hello", value="こんにちは。と返事する。", inline=True)
-        embed.add_field(name="!site", value="『シャニマス公式』へのリンクを表示する。", inline=True)
+        embed.add_field(name="!site", value="『シャニマス公式』などへのリンクを表示する。", inline=True)
         embed.add_field(name="!mkch", value="同カテゴリにテキストチャンネルを作成する。", inline=True)
         embed.add_field(name="!Support", value="管理人にサポートメッセージを送る(DM)", inline=False)
         embed.add_field(name="!cleanup (※管理人のみ)", value="テキストチャンネルのメッセージをすべて消す", inline=False)
