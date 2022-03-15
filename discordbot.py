@@ -114,7 +114,7 @@ async def on_ready():
 
 
 @bot.event
-async def on_command_error(ctx, error):
+async def on_command_error(message, error):
     if isinstance(error, commands.errors.MissingPermissions): #エラーの内容を判別
         await message.channnel.send(message.content + " は未知のコマンドです。\n!helpでコマンドを確認してください。")
 
