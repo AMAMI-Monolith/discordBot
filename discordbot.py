@@ -31,7 +31,7 @@ async def hello(message):
     if message.author.bot:
         return
     else:
-        reply = f'こんにちは、{message.mention}プロデューサー。'
+        reply = f'こんにちは、{message.author.mention}プロデューサー。'
         await message.channel.send(reply)
 
 
