@@ -31,7 +31,7 @@ async def hello(message):
     if message.author.bot:
         return
     else:
-        reply = f'こんにちは、{message.author.mention}プロデューサー。'
+        reply = f'こんにちは、{message.mention}プロデューサー。'
         await message.channel.send(reply)
 
 
@@ -179,13 +179,13 @@ async def help(message):
 @bot.event
 async def on_member_join(member):
     # ユーザのサーバーへの参加を検知し、埋め込みでログを残す。
-    guild = member.guild
+    guild = member.guild.name #参加したサーバー名
     ready =discord.utils.get(guild.text_channels, name="はじめに") #946633117651836978
     rule  =discord.utils.get(guild.text_channels, name="サーバールール") #945589161509941279
-    channel=discord.utils.get(guild.text_channels, name="入室ログ")
+    channel=discord.utils.get(guild.text_channels, name="入室ログ") #入退室を知らせるチャンネル
     embed =discord.Embed(title=f'{member.author.name} さんが参加しました', color=0x00ffff)
-    embed.set_thumbnail(url=member.author.avatar_url)
-    embed.add_field(name="name", value=f'{member.author.mention}', inline=False)
+    embed.set_thumbnail(url=member.avatar_url)
+    embed.add_field(name="name", value=f'{member.mention}', inline=False)
     await channel.send(f'{member.author.mention}\nようこそ、{ready.mention} と {rule.mention} を最初にお読みください。',
                         embed=embed)
         
