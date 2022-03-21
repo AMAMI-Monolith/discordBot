@@ -15,6 +15,8 @@ bot = commands.Bot(
     case_insensitive=True, #コマンドの大文字小文字を無視する(True)
     help_command = None #標準のhelpコマンドを無効化する(None)
 )
+intents=discord.Intents.all()
+client = discord.Client(intents=intents)
 buttons = ButtonsClient(bot)
 slash = InteractionClient(bot)
 
@@ -152,12 +154,6 @@ async def on_ready():
     await admin.send(file=file, embed=embed)
 
 
-@bot.event
-async def on_command_error(message, error):
-    if isinstance(error, commands.errors.MissingPermissions): #エラーの内容を判別
-        await message.channnel.send(message.content + " は未知のコマンドです。\n!helpでコマンドを確認してください。")
-
-
 @bot.command()
 async def help(message):
     if message.author.bot:
@@ -177,16 +173,18 @@ async def help(message):
 
 @bot.event
 async def on_member_join(member):
-    # ユーザのサーバーへの参加を検知し、埋め込みでログを残す。
-    guild = member.guild.name #参加したサーバー名
-    ready =discord.utils.get(guild.text_channels, name="はじめに") #946633117651836978
-    rule  =discord.utils.get(guild.text_channels, name="サーバールール") #945589161509941279
-    channel=discord.utils.get(guild.text_channels, name="入室ログ") #入退室を知らせるチャンネル
-    embed =discord.Embed(title=f'{member.author.name} さんが参加しました', color=0x00ffff)
-    embed.set_thumbnail(url=member.avatar_url)
-    embed.add_field(name="name", value=f'{member.mention}', inline=False)
-    await channel.send(f'{member.author.mention}\nようこそ、{ready.mention} と {rule.mention} を最初にお読みください。',
-                        embed=embed)
-        
+    guild = member.guild
+    channel=discord.utils.get(guild.text_channels, name="入室ログ")
+    embed=discord.Embed(title=f"{member.author.name}さんが参加しました", color=0x00ffff)
+    embed.set_thumbnail(url=message.author.avatar_url)
+    embed.add_field(name="参加者", value="f{member.author.mention}", inline=False)
+    await channel.send(f'{member.author.mention}',embed=embed)
 
-bot.run(token)
+@bot.event
+async def on_command_error(message, error):
+    if isinstance(error, commands.errors.MissingPermissions): #エラーの内容を判別
+        await message.channnel.send(message.content + " は未知のコマンドです。\n!helpでコマンドを確認してください。")
+
+
+bot.run('OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8')
+# bot.run(token)
