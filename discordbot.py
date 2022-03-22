@@ -162,12 +162,6 @@ async def help(message):
         await message.channel.send(file=file, embed=embed) # ファイルとembedを両方添えて送信する
 
 
-#試験運用 bot.event -> client.event
-@client.event
-async def on_member_join(member):
-    guild = member.guild
-    channel=discord.utils.get(guild.text_channels, name="入室ログ")
-    await channel.send(f'{member.author.mention}さん、ようこそ。\nまず、#はじめに #サーバールール をお読みください。')
 
 @bot.event
 async def on_member_join(member):
@@ -183,5 +177,4 @@ async def on_command_error(message, error):
 
 
 
-bot.run('OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8')
-# bot.run(token)
+ bot.run(token)
