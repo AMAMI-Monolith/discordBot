@@ -27,12 +27,16 @@ async def hello(ctx):
 
 
 @bot.command()
-async def support(ctx):
-    admin = await fetch_user('260333442489647105')
-    msg = f'{ctx.author.mention} さんからサポートの依頼です。'
-    #msg_reply = f'{ctx.author.mention} \n管理人にメッセージを送信しました。'
-    await admin.send(msg)
-    await ctx.send(f'{ctx.author.mention} \n管理人にメッセージを送信しました。')
+async def support(message):
+    """管理人にサポートを受けるメッセージを送信する。"""
+    if message.author.bot:
+        return
+    else:
+        admin = await bot.fetch_user(ADMIN_ID)
+        msg = f'{message.author.mention} さんからサポートの依頼です。'
+        msg_reply = f'{message.author.mention} \n管理人にメッセージを送信しました。'
+        await admin.send(msg)
+        await message.channel.send(msg_reply)
 
 
 @bot.command()
