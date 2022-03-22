@@ -128,18 +128,6 @@ async def stop(message):
     else:
         await message.channel.send("管理者専用コマンドだよ。")
 
-@bot.command()
-async def support(message):
-    """管理人にサポートを受けるメッセージを送信する。"""
-    if message.author.bot:
-        return
-    else:
-        admin = await bot.fetch_user(ADMIN_ID)
-        msg = f'{message.author.mention} さんからサポートの依頼です。'
-        msg_reply = f'{message.author.mention} \n管理人にメッセージを送信しました。'
-        await admin.send(msg)
-        await message.channel.send(msg_reply)
-
 
 @bot.event
 async def on_ready():
