@@ -1,8 +1,7 @@
 import discord
 import traceback
 from discord import Client, Intents, Embed
-from discord.ext import commands
-from discord.ext import pages
+from discord.ext import commands, pages
 from discord_buttons_plugin import *
 from discord.utils import get
 from discord_slash import SlashCommand, SlashContext
@@ -16,16 +15,22 @@ bot = commands.Bot(
     case_insensitive= True, #コマンドの大文字小文字を無視する(True)
     help_command = None, #標準のhelpコマンドを無効化する(None)
 )
+
+bot = discord.Client(
+    command_prefix = "!",
+    case_insensitive= True, #コマンドの大文字小文字を無視する(True)
+    help_command = None, #標準のhelpコマンドを無効化する(None)
+)
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
-buttons         = ButtonsClient(bot)
-slash           = InteractionClient(bot)
-slash_client    = SlashCommand(bot)
+buttons = ButtonsClient(bot)
+slash = InteractionClient(bot)
+slash_client = SlashCommand(bot, sync_commands=True)
 #-------------------------------
 
 
 #--- Slash Commands ---
-@slash_client.slash(name="nya"):
+@slash_client.slash(name="nya")
 async def _slash_nya(ctx: SlashContext):
     await ctx.send(content="にゃー")
 
@@ -37,11 +42,11 @@ async def _slash_hello(ctx: SlashContext):
 
 @slash_client.slash(name="support")
 async def _slash_support(ctx: SlashContext):
-    admin = await bot.fetch_user('260333442489647105')
+    admin = await fetch_user('260333442489647105')
     msg = f'{message.author.mention} さんからサポートの依頼です。'
     msg_reply = f'{message.author.mention} \n管理人にメッセージを送信しました。'
     await admin.send(msg)
-    await message.channel.send(content=msg_reply)
+    await ctx.send(content=msg_reply)
 
 
 
