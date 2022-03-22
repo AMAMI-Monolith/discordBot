@@ -5,8 +5,7 @@ from discord.ext import commands, pages
 from discord_buttons_plugin import *
 from discord.utils import get
 from discord_slash import SlashCommand, SlashContext
-from dislash import InteractionClient, SelectMenu, SelectOption
-from dislash import slash_commands
+from dislash import InteractionClient, SelectMenu, SelectOption, slash_commands
 from dislash.interactions import *
 from os import getenv
 
@@ -38,7 +37,8 @@ async def hello(ctx):
     await ctx.respond(f'こんにちは、{ctx.author.mention}プロデューサー。')
 
 
-@bot.slash_command(guild_ids=[427872633468616704])
+#--- bot.commands ---
+@bot.command()
 async def support(ctx):
     admin = await fetch_user('260333442489647105')
     msg = f'{ctx.author.mention} さんからサポートの依頼です。'
@@ -47,7 +47,6 @@ async def support(ctx):
     await ctx.send(f'{ctx.author.mention} \n管理人にメッセージを送信しました。')
 
 
-#--- bot.commands ---
 @bot.command()
 async def site(message):
     """ 公式サイトへの案内 """
@@ -150,7 +149,7 @@ async def on_ready():
     fname="BotOnline.png"
     file = discord.File(fp="img/BotOnline.png",filename=fname,spoiler=False) 
     embed.set_image(url=f"attachment://{fname}")
-    await admin.send(file=file, embed=embed)
+    await admin.send(embed=embed)
 
 
 @bot.command()
