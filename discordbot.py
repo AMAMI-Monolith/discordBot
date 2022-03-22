@@ -170,15 +170,12 @@ async def help(message):
         embed.set_image(url=f"attachment://{fname}") # embedに画像を埋め込むときのURLはattachment://ファイル名
         await message.channel.send(file=file, embed=embed) # ファイルとembedを両方添えて送信する
 
-
-@bot.event
+#試験運用 bot.event -> client.event
+@client.event
 async def on_member_join(member):
     guild = member.guild
     channel=discord.utils.get(guild.text_channels, name="入室ログ")
-    embed=discord.Embed(title=f"{member.author.name}さんが参加しました", color=0x00ffff)
-    embed.set_thumbnail(url=message.author.avatar_url)
-    embed.add_field(name="参加者", value="f{member.author.mention}", inline=False)
-    await channel.send(f'{member.author.mention}',embed=embed)
+    await channel.send(f'{member.author.mention}さん、ようこそ。\nまず、#はじめに #サーバールール をお読みください。')
 
 @bot.event
 async def on_command_error(message, error):
