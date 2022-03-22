@@ -6,49 +6,45 @@ from discord_buttons_plugin import *
 from discord.utils import get
 from discord_slash import SlashCommand, SlashContext
 from dislash import InteractionClient, SelectMenu, SelectOption
+from dislash import slash_commands
+from dislash.interactions import *
 from os import getenv
 
 # Botの起動とDiscordサーバーへの接続
-# ADMIN_ID = '260333442489647105'
+ADMIN_ID = '260333442489647105'
 bot = commands.Bot(
     command_prefix = "!",
     case_insensitive= True, #コマンドの大文字小文字を無視する(True)
-    help_command = None, #標準のhelpコマンドを無効化する(None)
-)
-
-bot = discord.Client(
-    command_prefix = "!",
-    case_insensitive= True, #コマンドの大文字小文字を無視する(True)
-    help_command = None, #標準のhelpコマンドを無効化する(None)
+    help_command = None #標準のhelpコマンドを無効化する(None)
 )
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
 buttons = ButtonsClient(bot)
-slash = InteractionClient(bot)
-slash_client = SlashCommand(bot, sync_commands=True)
+#slash = InteractionClient(bot)
+slash = slash_commands.SlashClient(bot)
+#slash_client = SlashCommand(bot, sync_commands=True)
 #-------------------------------
 
 
 #--- Slash Commands ---
-@slash_client.slash(name="nya")
-async def _slash_nya(ctx: SlashContext):
-    await ctx.send(content="にゃー")
+
+@bot.slash_command(guild_ids=[427872633468616704])
+async def ping(ctx):
+    await ctx.respond('pong')
 
 
-@slash_client.slash(name="hello")
-async def _slash_hello(ctx: SlashContext):
-    await ctx.send(content=f'こんにちは、{message.author.mention}プロデューサー。')
+@bot.slash_command(guild_ids=[427872633468616704])
+async def hello(ctx):
+    await ctx.respond(f'こんにちは、{ctx.author.mention}プロデューサー。')
 
 
-@slash_client.slash(name="support")
-async def _slash_support(ctx: SlashContext):
+@bot.slash_command(guild_ids=[427872633468616704])
+async def support(ctx):
     admin = await fetch_user('260333442489647105')
-    msg = f'{message.author.mention} さんからサポートの依頼です。'
-    msg_reply = f'{message.author.mention} \n管理人にメッセージを送信しました。'
+    msg = f'{ctx.author.mention} さんからサポートの依頼です。'
+    #msg_reply = f'{ctx.author.mention} \n管理人にメッセージを送信しました。'
     await admin.send(msg)
-    await ctx.send(content=msg_reply)
-
-
+    await ctx.send(f'{ctx.author.mention} \n管理人にメッセージを送信しました。')
 
 
 #--- bot.commands ---
