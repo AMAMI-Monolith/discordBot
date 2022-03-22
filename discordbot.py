@@ -1,8 +1,10 @@
 import discord
 import traceback
 from discord.ext import commands
+from discord.ext import pages
 from discord_buttons_plugin import *
 from discord.utils import get
+from discord_slash import SlashCommand, SlashContext
 from dislash import InteractionClient, SelectMenu, SelectOption
 from os import getenv
 
@@ -11,31 +13,42 @@ ADMIN_ID = '260333442489647105'
 token = getenv('DISCORD_BOT_TOKEN')
 
 bot = commands.Bot(
-    command_prefix = "!",
-    case_insensitive=True, #コマンドの大文字小文字を無視する(True)
-    help_command = None #標準のhelpコマンドを無効化する(None)
+    command_prefix  = "!",
+    case_insensitive= True, #コマンドの大文字小文字を無視する(True)
+    help_command    = None, #標準のhelpコマンドを無効化する(None)
+    intents         = discord.Intents.all(),
+    client          = discord.Client(intents=intents),
 )
-intents=discord.Intents.all()
-client = discord.Client(intents=intents)
-buttons = ButtonsClient(bot)
-slash = InteractionClient(bot)
+buttons         = ButtonsClient(bot)
+slash           = InteractionClient(bot)
+slash_client    = SlashCommand(bot)
+#-------------------------------
 
 
-@bot.command()
-async def nya(message):
-    """ テスト:nyaa """
-    await message.send('にゃー')
+#--- Slash Commands ---
+@slash_client.slash(name="nya"):
+async def _slash_nya(ctx: SlashContext):
+    await ctx.send(content="にゃー")
 
 
-@bot.command()
-async def hello(message):
-    """ 挨拶を返す """
-    if message.author.bot:
-        return
-    else:
-        await message.send(f'こんにちは、{message.author.mention}プロデューサー。')
+@slash_client.slash(name="hello")
+async def _slash_hello(ctx: SlashContext):
+    await ctx.send(content=f'こんにちは、{message.author.mention}プロデューサー。')
 
 
+@slash_client.slash(name="support")
+async def _slash_support(ctx:SlashContext):
+    """管理人にサポートを受けるメッセージを送信する。"""
+    admin = await bot.fetch_user(ADMIN_ID)
+    msg = f'{message.author.mention} さんからサポートの依頼です。'
+    msg_reply = f'{message.author.mention} \n管理人にメッセージを送信しました。'
+    await admin.send(msg)
+    await message.channel.send(content=msg_reply)
+
+
+
+
+#--- bot.commands ---
 @bot.command()
 async def site(message):
     """ 公式サイトへの案内 """
@@ -115,19 +128,6 @@ async def create_channel(message, channel_name):
 
 
 @bot.command()
-async def support(message):
-    """管理人にサポートを受けるメッセージを送信する。"""
-    if message.author.bot:
-        return
-    else:
-        admin = await bot.fetch_user(ADMIN_ID)
-        msg = f'{message.author.mention} さんからサポートの依頼です。'
-        msg_reply = f'{message.author.mention} \n管理人にメッセージを送信しました。'
-        await admin.send(msg)
-        await message.channel.send(msg_reply)
-
-
-@bot.command()
 async def stop(message):
     """ Botを停止することができる(管理者のみ) """
     if message.author.guild_permissions.administrator:
@@ -176,6 +176,14 @@ async def on_member_join(member):
     guild = member.guild
     channel=discord.utils.get(guild.text_channels, name="入室ログ")
     await channel.send(f'{member.author.mention}さん、ようこそ。\nまず、#はじめに #サーバールール をお読みください。')
+
+
+@bot.event
+async def on_member_join(member):
+    guild = member.guild
+    channel=discord.utils.get(guild.text_channels, name="入室ログ")
+    await channel.send(f'{member.author.mention}さん、ようこそ。\nまず、#はじめに #サーバールール をお読みください。')
+
 
 @bot.event
 async def on_command_error(message, error):
