@@ -19,25 +19,16 @@ bot = commands.Bot(
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
 buttons = ButtonsClient(bot)
-#slash = InteractionClient(bot)
-slash = slash_commands.SlashClient(bot)
-#slash_client = SlashCommand(bot, sync_commands=True)
 #-------------------------------
 
 
-#--- Slash Commands ---
-
-@bot.slash_command(guild_ids=[427872633468616704])
-async def ping(ctx):
-    await ctx.respond('pong')
-
-
-@bot.slash_command(guild_ids=[427872633468616704])
-async def hello(ctx):
-    await ctx.respond(f'こんにちは、{ctx.author.mention}プロデューサー。')
-
 
 #--- bot.commands ---
+@bot.command()
+async def hello(ctx):
+    await ctx.send(f'こんにちは、{ctx.author.mention}プロデューサー。')
+
+
 @bot.command()
 async def support(ctx):
     admin = await fetch_user('260333442489647105')
@@ -144,12 +135,7 @@ async def on_ready():
     print(f'{bot.user.name}がログインしたよ。')
     print('------')
     await bot.change_presence(activity=discord.Game(name="!help"))
-    admin = await bot.fetch_user(ADMIN_ID)
     embed = discord.Embed(title="Botがオンラインになりました。", color=0x29f306)
-    fname="BotOnline.png"
-    file = discord.File(fp="img/BotOnline.png",filename=fname,spoiler=False) 
-    embed.set_image(url=f"attachment://{fname}")
-    await admin.send(embed=embed)
 
 
 @bot.command()
