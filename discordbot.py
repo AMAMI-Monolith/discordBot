@@ -1,12 +1,9 @@
 import discord
 import traceback
-from discord import Client, Intents, Embed
-from discord.ext import commands, pages
+from discord.ext import commands
 from discord_buttons_plugin import *
 from discord.utils import get
-from discord_slash import SlashCommand, SlashContext
-from dislash import InteractionClient, SelectMenu, SelectOption, slash_commands
-from dislash.interactions import *
+from dislash import InteractionClient, SelectMenu, SelectOption
 from os import getenv
 
 # Botの起動とDiscordサーバーへの接続
