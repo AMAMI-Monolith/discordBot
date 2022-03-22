@@ -124,6 +124,19 @@ async def stop(message):
     else:
         await message.channel.send("管理者専用コマンドだよ。")
 
+@bot.command()
+async def support(message):
+    """管理人にサポートを受けるメッセージを送信する。"""
+    if message.author.bot:
+        return
+    else:
+        admin = await bot.fetch_user(ADMIN_ID)
+        msg = f'{message.author.mention} さんからサポートの依頼です。'
+        msg_reply = f'{message.author.mention} \n管理人にメッセージを送信しました。'
+        await admin.send(msg)
+        await message.channel.send(msg_reply)
+
+
 @bot.event
 async def on_ready():
     # このbotのサーバーにオンラインになった時に管理人にDM(ダイレクトメッセージ)を送信する。
@@ -132,7 +145,12 @@ async def on_ready():
     print(f'{bot.user.name}がログインしたよ。')
     print('------')
     await bot.change_presence(activity=discord.Game(name="!help"))
+    admin = await bot.fetch_user(ADMIN_ID)
     embed = discord.Embed(title="Botがオンラインになりました。", color=0x29f306)
+    fname="BotOnline.png"
+    file = discord.File(fp="img/BotOnline.png",filename=fname,spoiler=False) 
+    embed.set_image(url=f"attachment://{fname}")
+    await admin.send(file=file, embed=embed)
 
 
 @bot.command()
