@@ -1,5 +1,6 @@
 import discord
 import traceback
+from discord import Client, Intents, Embed
 from discord.ext import commands
 from discord.ext import pages
 from discord_buttons_plugin import *
@@ -9,15 +10,15 @@ from dislash import InteractionClient, SelectMenu, SelectOption
 from os import getenv
 
 # Botの起動とDiscordサーバーへの接続
-ADMIN_ID = '260333442489647105'
+# ADMIN_ID = '260333442489647105'
 token = getenv('DISCORD_BOT_TOKEN')
 
 bot = commands.Bot(
-    command_prefix  = "!",
+    command_prefix = "!",
     case_insensitive= True, #コマンドの大文字小文字を無視する(True)
-    help_command    = None, #標準のhelpコマンドを無効化する(None)
-    intents         = discord.Intents.all(),
-    client          = discord.Client(intents=intents),
+    help_command = None, #標準のhelpコマンドを無効化する(None)
+    intents = discord.Intents.all(),
+    client = discord.Client(intents=intents)
 )
 buttons         = ButtonsClient(bot)
 slash           = InteractionClient(bot)
@@ -37,9 +38,8 @@ async def _slash_hello(ctx: SlashContext):
 
 
 @slash_client.slash(name="support")
-async def _slash_support(ctx:SlashContext):
-    """管理人にサポートを受けるメッセージを送信する。"""
-    admin = await bot.fetch_user(ADMIN_ID)
+async def _slash_support(ctx: SlashContext):
+    admin = await bot.fetch_user('260333442489647105')
     msg = f'{message.author.mention} さんからサポートの依頼です。'
     msg_reply = f'{message.author.mention} \n管理人にメッセージを送信しました。'
     await admin.send(msg)
