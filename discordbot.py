@@ -9,6 +9,7 @@ from os import getenv
 # Botの起動とDiscordサーバーへの接続
 ADMIN_ID = '260333442489647105'
 token = getenv('DISCORD_BOT_TOKEN')
+
 bot = commands.Bot(
     command_prefix = "!",
     case_insensitive= True, #コマンドの大文字小文字を無視する(True)
@@ -19,11 +20,10 @@ slash = InteractionClient(bot)
 #-------------------------------
 
 
-
 #--- bot.commands ---
 @bot.command()
-async def hello(ctx):
-    await ctx.send(f'こんにちは、{ctx.author.mention}プロデューサー。')
+async def hello(message):
+    await message.send(f'こんにちは、{message.author.mention}プロデューサー。')
 
 
 @bot.command()
@@ -96,39 +96,6 @@ async def cleanup(message):
         await message.channel.send('管理者専用コマンドだよ。')
 
 
-@bot.command()
-async def mkch(message):
-    """ 発言したチャンネルのカテゴリ内に新規テキストチャンネルを作成。 """
-    if message.author.bot:
-        return
-    else:
-        new_channel = await create_channel(message, channel_name = message.author.name)
-        # チャンネルのリンクと作成メッセージを送信
-        text = f'{new_channel.mention} を作成したよ。'
-        await message.channel.send(text)
-
-
-@bot.event
-async def create_channel(message, channel_name):
-    # 下のmkchから呼ばれる新規テキストチャンネルを作成する。
-    category_id = message.channel.category_id
-    category = message.guild.get_channel(category_id)
-    new_channel = await category.create_text_channel(name=channel_name)
-    return new_channel
-
-
-@bot.command()
-async def stop(message):
-    """ Botを停止することができる(管理者のみ) """
-    if message.author.guild_permissions.administrator:
-        admin = await bot.fetch_user(ADMIN_ID)
-        msg = "🌙 status : Offline"
-        await admin.send(msg)
-        await bot.logout()
-    else:
-        await message.channel.send("管理者専用コマンドだよ。")
-
-
 @bot.event
 async def on_ready():
     # このbotのサーバーにオンラインになった時に管理人にDM(ダイレクトメッセージ)を送信する。
@@ -146,6 +113,27 @@ async def on_ready():
 
 
 @bot.command()
+async def mkch(message):
+    """ 発言したチャンネルのカテゴリ内に新規テキストチャンネルを作成。 """
+    if message.author.bot:
+        return
+    else:
+        new_channel = await create_channel(message, channel_name = message.author.name)
+        # チャンネルのリンクと作成メッセージを送信
+        text = f'{new_channel.mention} を作成したよ。'
+        await message.channel.send(text)
+
+
+@bot.event
+async def create_channel(message, channel_name):
+    # 上のmkchから呼ばれる新規テキストチャンネルを作成する。
+    category_id = message.channel.category_id
+    category = message.guild.get_channel(category_id)
+    new_channel = await category.create_text_channel(name=channel_name)
+    return new_channel
+
+
+@bot.command()
 async def help(message):
     if message.author.bot:
         return
@@ -160,7 +148,6 @@ async def help(message):
         file = discord.File(fp="img/help.png",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
         embed.set_image(url=f"attachment://{fname}") # embedに画像を埋め込むときのURLはattachment://ファイル名
         await message.channel.send(file=file, embed=embed) # ファイルとembedを両方添えて送信する
-
 
 
 @bot.event
