@@ -120,7 +120,7 @@ async def mkch(message):
         return
     else:
         new_channel = await create_channel(message, channel_name = message.author.name)
-        # チャンネルのリンクと作成メッセージを送信
+    # チャンネルのリンクと作成メッセージを送信
         text = f'{new_channel.mention} を作成したよ。'
         await message.channel.send(text)
 
@@ -149,13 +149,6 @@ async def help(message):
         file = discord.File(fp="img/help.png",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
         embed.set_image(url=f"attachment://{fname}") # embedに画像を埋め込むときのURLはattachment://ファイル名
         await message.channel.send(file=file, embed=embed) # ファイルとembedを両方添えて送信する
-
-
-@bot.event
-async def on_member_join(member):
-    guild = member.guild
-    channel=discord.utils.get(guild.text_channels, name="入室ログ")
-    await channel.send(f'{member.author.mention}さん、ようこそ。\nまず、#はじめに #サーバールール をお読みください。')
 
 
 @bot.event
