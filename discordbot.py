@@ -8,8 +8,8 @@ from os import getenv
 
 # Botの起動とDiscordサーバーへの接続
 ADMIN_ID = '260333442489647105'
-#token = getenv('DISCORD_BOT_TOKEN')
-token = 'OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8'
+token = getenv('DISCORD_BOT_TOKEN')
+#token = 'OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8'
 
 bot = commands.Bot(
     command_prefix = "!",
@@ -92,9 +92,18 @@ async def cleanup(message):
     """ テキストチャンネル内のログが消える。 (管理者のみ)"""
     if message.author.guild_permissions.administrator:
         await message.channel.purge()
-        await message.channel.send('チャンネルを綺麗にしたよ。')
+        await message.channel.send(f'{message.author.mention} チャンネルを綺麗にしたよ。')
     else:
         await message.channel.send('管理者専用コマンドだよ。')
+
+
+@bot.command()
+async def asi(message):
+    AllList = message.author.guild.text_channels
+    print('------')
+    print(AllList[0].name)
+    print(AllList[0].category_id)
+    print(AllList[0].id)
 
 
 @bot.event
@@ -149,15 +158,6 @@ async def help(message):
         file = discord.File(fp="img/help.png",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
         embed.set_image(url=f"attachment://{fname}") # embedに画像を埋め込むときのURLはattachment://ファイル名
         await message.channel.send(file=file, embed=embed) # ファイルとembedを両方添えて送信する
-
-
-@bot.command()
-async def aoe(ctx):
-    AllList = ctx.guild.text_channels
-    print('------')
-    print(AllList[0].name)
-    print(AllList[0].category_id)
-    print(AllList[0].id)
 
 
 @bot.event
