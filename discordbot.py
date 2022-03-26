@@ -101,7 +101,7 @@ async def cleanup(message):
 async def asi(message):
     AllList = message.author.guild.text_channels
     print('------')
-    for var i=0 in range(AllList.length):
+    for i in range(AllList):
         print(AllList[i].name)
         print(AllList[i].category_id)
         print(AllList[i].id)
