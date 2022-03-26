@@ -8,8 +8,8 @@ from os import getenv
 
 # Botの起動とDiscordサーバーへの接続
 ADMIN_ID = '260333442489647105'
-token = getenv('DISCORD_BOT_TOKEN')
-#token = 'OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8'
+#token = getenv('DISCORD_BOT_TOKEN')
+token = 'OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8'
 
 bot = commands.Bot(
     command_prefix = "!",
@@ -152,8 +152,9 @@ async def help(message):
 
 
 @bot.command()
-async def cln(ctx):
+async def aoe(ctx):
     AllList = ctx.guild.text_channels
+    print('------')
     print(AllList[0].name)
     print(AllList[0].category_id)
     print(AllList[0].id)
