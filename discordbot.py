@@ -92,7 +92,7 @@ async def cleanup(message):
     """ テキストチャンネル内のログが消える。 (管理者のみ)"""
     if message.author.guild_permissions.administrator:
         await message.channel.purge()
-        await message.channel.send(f'{message.author.mention} チャンネルを綺麗にしたよ。')
+        await message.send(f'{message.author.mention}チャンネルを綺麗にしたよ。')
     else:
         await message.channel.send('管理者専用コマンドだよ。')
 
