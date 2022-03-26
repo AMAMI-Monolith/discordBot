@@ -97,14 +97,6 @@ async def cleanup(message):
         await message.channel.send('管理者専用コマンドだよ。')
 
 
-@bot.command()
-async def asi(message):
-    AllList = message.author.guild.text_channels
-    print('------')
-    for num in range(AllList):
-        print(AllList[num].name)
-
-
 @bot.event
 async def on_ready():
     # このbotのサーバーにオンラインになった時に管理人にDM(ダイレクトメッセージ)を送信する。
