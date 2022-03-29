@@ -3,7 +3,6 @@ discord-buttons-plugin
 discord.py
 dislash.py
 
-
 #Other
 aiohttp
 async-generator

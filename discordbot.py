@@ -1,3 +1,4 @@
+#import ,from文
 import discord
 import traceback
 from discord.ext import commands
@@ -8,9 +9,11 @@ from os import getenv
 
 # Botの起動とDiscordサーバーへの接続
 ADMIN_ID = '260333442489647105'
+
 token = getenv('DISCORD_BOT_TOKEN')
 #token = 'OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8'
 
+#-------------------------------
 bot = commands.Bot(
     command_prefix = "!",
     case_insensitive= True, #コマンドの大文字小文字を無視する(True)
@@ -22,9 +25,18 @@ slash = InteractionClient(bot)
 
 
 #--- bot.commands ---
-@bot.command()
-async def hello(message):
-    await message.send(f'こんにちは、{message.author.mention}プロデューサー。')
+class Generals(commands.cog):
+    def __init__(self, bot):
+        self.bot = bot
+        self._last_member = None
+
+        @commands.command()
+        async def test(self,ctx):
+            await ctx.send("test")
+
+        @commands.command()
+        async def hello(self, message):
+            await message.send(f'こんにちは、{message.author.mention}プロデューサー。')
 
 
 @bot.command()
@@ -49,7 +61,7 @@ async def site(message):
         embed=discord.Embed(
             title = "公式サイト や 関連リンク",
             color = 0xff4d00
-        ) 
+        )
         fname="logo.png "
         file = discord.File(fp="img/logo.png",filename=fname,spoiler=False)
         embed.set_image(url=f"attachment://{fname}")
@@ -108,7 +120,7 @@ async def on_ready():
     admin = await bot.fetch_user(ADMIN_ID)
     embed = discord.Embed(title="Botがオンラインになりました。", color=0x29f306)
     fname="BotOnline.png"
-    file = discord.File(fp="img/BotOnline.png",filename=fname,spoiler=False) 
+    file = discord.File(fp="img/BotOnline.png",filename=fname,spoiler=False)
     embed.set_image(url=f"attachment://{fname}")
     await admin.send(file=file, embed=embed)
 
