@@ -23,20 +23,10 @@ buttons = ButtonsClient(bot)
 slash = InteractionClient(bot)
 #-------------------------------
 
-
 #--- bot.commands ---
-class Generals(commands.cog):
-    def __init__(self, bot):
-        self.bot = bot
-        self._last_member = None
-
-        @commands.command()
-        async def test(self,ctx):
-            await ctx.send("test")
-
-        @commands.command()
-        async def hello(self, message):
-            await message.send(f'こんにちは、{message.author.mention}プロデューサー。')
+bot.command()
+async def hello(self, message):
+    await message.send(f'こんにちは、{message.author.mention}プロデューサー。')
 
 
 @bot.command()
@@ -161,6 +151,16 @@ async def help(message):
         file = discord.File(fp="img/help.png",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
         embed.set_image(url=f"attachment://{fname}") # embedに画像を埋め込むときのURLはattachment://ファイル名
         await message.channel.send(file=file, embed=embed) # ファイルとembedを両方添えて送信する
+
+
+#新規メンバー入室時にメッセージを飛ばすもの。
+@bot.event
+async def on_menber_join(member: discord.member):
+    channel = bot.get_channel(427872633468616706) #入室ログ
+    if not channel:
+        return
+
+    await channel.send(f'ようこそ、{member}さん。')
 
 
 @bot.event
