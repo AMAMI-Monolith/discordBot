@@ -99,6 +99,12 @@ async def cleanup(message):
         await message.channel.send('管理者専用コマンドだよ。')
 
 
+@bot.command()
+async def clear(message, num):
+    async for message in message.channel.history(limit=int(num)+1):
+        await message.delete(delay=1.2)
+
+
 @bot.event
 async def on_ready():
     # このbotのサーバーにオンラインになった時に管理人にDM(ダイレクトメッセージ)を送信する。
