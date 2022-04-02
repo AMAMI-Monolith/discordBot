@@ -1,3 +1,4 @@
+#import ,from文
 import discord
 import traceback
 from discord.ext import commands
@@ -8,9 +9,11 @@ from os import getenv
 
 # Botの起動とDiscordサーバーへの接続
 ADMIN_ID = '260333442489647105'
+
 token = getenv('DISCORD_BOT_TOKEN')
 #token = 'OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8'
 
+#-------------------------------
 bot = commands.Bot(
     command_prefix = "!",
     case_insensitive= True, #コマンドの大文字小文字を無視する(True)
@@ -20,10 +23,9 @@ buttons = ButtonsClient(bot)
 slash = InteractionClient(bot)
 #-------------------------------
 
-
 #--- bot.commands ---
-@bot.command()
-async def hello(message):
+bot.command()
+async def hello(self, message):
     await message.send(f'こんにちは、{message.author.mention}プロデューサー。')
 
 
@@ -49,7 +51,7 @@ async def site(message):
         embed=discord.Embed(
             title = "公式サイト や 関連リンク",
             color = 0xff4d00
-        ) 
+        )
         fname="logo.png "
         file = discord.File(fp="img/logo.png",filename=fname,spoiler=False)
         embed.set_image(url=f"attachment://{fname}")
@@ -97,6 +99,12 @@ async def cleanup(message):
         await message.channel.send('管理者専用コマンドだよ。')
 
 
+@bot.command()
+async def clear(message, num):
+    async for message in message.channel.history(limit=int(num)+1):
+        await message.delete(delay=1.2)
+
+
 @bot.event
 async def on_ready():
     # このbotのサーバーにオンラインになった時に管理人にDM(ダイレクトメッセージ)を送信する。
@@ -108,7 +116,7 @@ async def on_ready():
     admin = await bot.fetch_user(ADMIN_ID)
     embed = discord.Embed(title="Botがオンラインになりました。", color=0x29f306)
     fname="BotOnline.png"
-    file = discord.File(fp="img/BotOnline.png",filename=fname,spoiler=False) 
+    file = discord.File(fp="img/BotOnline.png",filename=fname,spoiler=False)
     embed.set_image(url=f"attachment://{fname}")
     await admin.send(file=file, embed=embed)
 
@@ -149,6 +157,16 @@ async def help(message):
         file = discord.File(fp="img/help.png",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
         embed.set_image(url=f"attachment://{fname}") # embedに画像を埋め込むときのURLはattachment://ファイル名
         await message.channel.send(file=file, embed=embed) # ファイルとembedを両方添えて送信する
+
+
+#新規メンバー入室時にメッセージを飛ばすもの。
+@bot.event
+async def on_menber_join(member: discord.member):
+    channel = bot.get_channel(427872633468616706) #入室ログ
+    if not channel:
+        return
+
+    await channel.send(f'ようこそ、{member}さん。')
 
 
 @bot.event
