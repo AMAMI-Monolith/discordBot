@@ -164,27 +164,19 @@ async def sakuinfo(message):
     res = interaction.value[0]
 
     if res == "白いツバサ":
-        await interaction.send("選択したカードは" + res + "です。")
+        await interaction.send("1選択したカードは" + res + "です。")
     elif res == "真紅一輪":
-        await interaction.send("選択したカードは" + res + "です。")
+        await interaction.send("2選択したカードは" + res + "です。")
     elif res == "雪染めロマンティカ":
-        await interaction.send("選択したカードは" + res + "です。")
+        await interaction.send("3選択したカードは" + res + "です。")
     elif res == "ふれあい、おもいあい":
-        await interaction.send("選択したカードは" + res + "です。")
+        await interaction.send("4選択したカードは" + res + "です。")
     elif res == "秘めやかファンサービス":
-        await interaction.send("選択したカードは" + res + "です。")
+        await interaction.send("5選択したカードは" + res + "です。")
     elif res == "アイドルロード":
-        await interaction.send("選択したカードは" + res + "です。")
+        await interaction.send("6選択したカードは" + res + "です。")
     else:
         await interaction.send("Error")
-
-
-@bot.event
-async def on_interaction(interaction):
-    await interaction.channel.send("Interactionが発生しました。")
-    await interaction.channel.send("id:{}\ntype:{}".format(interaction.id, interaction.type))
-
-
 
 
 
