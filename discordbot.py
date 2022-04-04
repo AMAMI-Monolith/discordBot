@@ -1,4 +1,5 @@
 #import ,from文
+from importlib.resources import contents
 import discord
 import traceback
 from discord.ext import commands
@@ -38,7 +39,7 @@ async def support(message):
         msg = f'{message.author.mention} さんからサポートの依頼です。'
         msg_reply = f'{message.author.mention} \n管理人にメッセージを送信しました。'
         await admin.send(msg)
-        await message.channel.send(msg_reply)
+        await message.channel.send(msg_reply, ephemeral=True)
 
 
 @bot.command()
@@ -54,7 +55,7 @@ async def site(message):
         fname="logo.png "
         file = discord.File(fp="img/logo.png",filename=fname,spoiler=False)
         embed.set_image(url=f"attachment://{fname}")
-        await message.send(file=file, embed=embed)
+        await message.send(file=file, embed=embed, ephemeral=True)
         await buttons.send(
             channel = message.channel.id,
             components = [
@@ -139,7 +140,56 @@ async def help(message):
         fname="help.png" # アップロードするときのファイル名 自由に決めて良いですが、拡張子を忘れないように
         file = discord.File(fp="img/help.png",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
         embed.set_image(url=f"attachment://{fname}") # embedに画像を埋め込むときのURLはattachment://ファイル名
-        await message.channel.send(file=file, embed=embed) # ファイルとembedを両方添えて送信する
+        await message.channel.send(file=file, embed=embed, ephemeral=True) # ファイルとembedを両方添えて送信する
+
+
+@bot.command()
+async def sakuinfo(message):
+    await message.send(
+        content= "Pアイドルを選んでください。",
+        components = [Select(
+                placeholder = "知りたいカード名を選択してください。",
+                options=[
+                    SelectOption(label= "[P]白いツバサ", value= "白いツバサ"),
+                    SelectOption(label= "[P]真紅一輪",value= "真紅一輪"),
+                    SelectOption(label= "[P]雪染めロマンティカ",value= "雪染めロマンティカ"),
+                    SelectOption(label= "[P]ふれあい、おもいあい",value= "ふれあい、おもいあい"),
+                    SelectOption(label= "[P]秘めやかファンサービス",value= "秘めやかファンサービス"),
+                    SelectOption(label= "[P]アイドルロード",value= "アイドルロード"),
+                ],
+                custom_id = "card_choice"
+    )])
+
+    interaction = await bot.wait_for('select_option', check=lambda inter: inter.custom_id == 'card_choice' and inter.user == message.author)
+    res = interaction.value[0]
+
+    if res == "白いツバサ":
+        await interaction.send("選択したカードは" + res + "です。")
+    elif res == "真紅一輪":
+        await interaction.send("選択したカードは" + res + "です。")
+    elif res == "雪染めロマンティカ":
+        await interaction.send("選択したカードは" + res + "です。")
+    elif res == "ふれあい、おもいあい":
+        await interaction.send("選択したカードは" + res + "です。")
+    elif res == "秘めやかファンサービス":
+        await interaction.send("選択したカードは" + res + "です。")
+    elif res == "アイドルロード":
+        await interaction.send("選択したカードは" + res + "です。")
+    else:
+        await interaction.send("Error")
+
+
+@bot.event
+async def on_interaction(interaction):
+    await interaction.channel.send("Interactionが発生しました。")
+    await interaction.channel.send("id:{}\ntype:{}".format(interaction.id, interaction.type))
+
+
+
+
+
+
+
 
 #--- bot.event ---------------
 @bot.event
