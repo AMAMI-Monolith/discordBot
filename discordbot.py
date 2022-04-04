@@ -15,17 +15,16 @@ token = getenv('DISCORD_BOT_TOKEN')
 #token = 'OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8'
 
 #-------------------------------
-intents = discord.Intents.all()
-discord.member = True
-buttons = ButtonsClient(bot)
-slash = InteractionClient(bot)
-
 bot = commands.Bot(
     command_prefix = "!",
     case_insensitive= True, #コマンドの大文字小文字を無視する(True)
     help_command = None, #標準のhelpコマンドを無効化する(None)
     intents = intents
 )
+intents = discord.Intents.all()
+discord.member = True
+buttons = ButtonsClient(bot)
+slash = InteractionClient(bot)
 #-------------------------------
 
 #--- bot.commands ---
