@@ -180,7 +180,7 @@ async def sakuyainfo(ctx):
 
 @bot.command()
 async def sinfo(ctx):
-    await sakuyainfo(ctx):
+    await sakuyainfo(ctx)
 
 
 #--- bot.event ---------------
