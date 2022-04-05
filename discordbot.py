@@ -145,7 +145,7 @@ async def help(message):
 
 @bot.command()
 async def sakuyainfo(ctx):
-    await ctx.send(
+    await ctx.channel.send(
         "Pアイドルを選んでください。",
         components = [
             Select(
