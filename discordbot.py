@@ -1,7 +1,7 @@
 import discord
 import traceback
 from importlib.resources import contents
-from discord.ext import commands
+from discord.ext  import commands
 from discord_buttons_plugin import *
 from discord.utils import get
 from dislash import InteractionClient, SelectMenu, SelectOption
@@ -18,9 +18,9 @@ bot = commands.Bot(
     command_prefix = "!",
     case_insensitive= True, #コマンドの大文字小文字を無視する(True)
     help_command = None, #標準のhelpコマンドを無効化する(None)
+    intents=discord.Intents.all()
+    discord.member = True
 )
-intents = discord.Intents.all()
-discord.member = True
 buttons = ButtonsClient(bot)
 slash = InteractionClient(bot)
 #-------------------------------
