@@ -19,8 +19,8 @@ bot = commands.Bot(
     case_insensitive= True, #コマンドの大文字小文字を無視する(True)
     help_command = None, #標準のhelpコマンドを無効化する(None)
     intents=discord.Intents.all()
-    discord.member = True
 )
+discord.member = True
 buttons = ButtonsClient(bot)
 slash = InteractionClient(bot)
 #-------------------------------
