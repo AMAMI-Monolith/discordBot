@@ -5,7 +5,7 @@ from discord.ext  import commands
 from discord_buttons_plugin import *
 from discord.utils import get
 from dislash import InteractionClient, SelectMenu, SelectOption
-from discord_components import DiscordComponents, ComponentsBot, Button
+from discord_components import DiscordComponents, ComponentsBot, Button, Select
 from os import getenv
 
 # Botの起動とDiscordサーバーへの接続
