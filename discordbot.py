@@ -15,6 +15,7 @@ ADMIN_ID = '260333442489647105'
 token = 'OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8'
 
 #-------------------------------
+bot = ComponentsBot('!')
 bot = commands.Bot(
     command_prefix = "!",
     case_insensitive= True, #コマンドの大文字小文字を無視する(True)
