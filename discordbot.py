@@ -5,7 +5,7 @@ from discord.ext  import commands
 from discord_buttons_plugin import *
 from discord.utils import get
 from dislash import InteractionClient, SelectMenu, SelectOption
-from discord_components import DiscordComponents, ComponentsBot, Button, Select
+from discord_components import DiscordComponents, ComponentsBot, Button, Select, SelectOption
 from os import getenv
 
 # Botの起動とDiscordサーバーへの接続
@@ -143,24 +143,27 @@ async def help(message):
         await message.channel.send(file=file, embed=embed) # ファイルとembedを両方添えて送信する
 
 
-
+@bot.command()
 async def sakuyainfo(ctx):
-    await ctx.send(content= "Pアイドルを選んでください。", components = [Select(
-                                                                                                placeholder = "知りたいカード名を選択してください。",
-                                                                                                options=[
-                                                                                                    SelectOption(label= "[P]白いツバサ", value= "白いツバサ"),
-                                                                                                    SelectOption(label= "[P]真紅一輪",value= "真紅一輪"),
-                                                                                                    SelectOption(label= "[P]雪染めロマンティカ",value= "雪染めロマンティカ"),
-                                                                                                    SelectOption(label= "[P]ふれあい、おもいあい",value= "ふれあい、おもいあい"),
-                                                                                                    SelectOption(label= "[P]秘めやかファンサービス",value= "秘めやかファンサービス"),
-                                                                                                    SelectOption(label= "[P]アイドルロード",value= "アイドルロード"),
-                                                                                                    SelectOption(label="✕ キャンセル", value= "Cancel")
-                                                                                                ],
-                                                                                                custom_id = "card_choice"
-    )])
-    interaction = await bot.wait_for('select_option', check=lambda inter: inter.custom_id == 'card_choice' and inter.user == ctx.author)
+    await ctx.send(
+        "Pアイドルを選んでください。",
+        components = [
+            Select(
+                placeholder = "カード名を選択してください。",
+                options=[
+                    SelectOption(label= "[P]白いツバサ", value= "白いツバサ"),
+                    SelectOption(label= "[P]真紅一輪",value= "真紅一輪"),
+                    SelectOption(label= "[P]雪染めロマンティカ",value= "雪染めロマンティカ"),
+                    SelectOption(label= "[P]ふれあい、おもいあい",value= "ふれあい、おもいあい"),
+                    SelectOption(label= "[P]秘めやかファンサービス",value= "秘めやかファンサービス"),
+                    SelectOption(label= "[P]アイドルロード",value= "アイドルロード"),
+                    SelectOption(label="✕ キャンセル", value= "Cancel")
+                ]
+            )
+        ]
+    )
+    interaction = await bot.wait_for('select_option', check=lambda inter: inter.custom_id == 'card_choice')
     res = interaction.values[0]
-
     if res == "白いツバサ":
         await interaction.send("1選択したカードは" + res + "です。")
     elif res == "真紅一輪":
@@ -177,10 +180,6 @@ async def sakuyainfo(ctx):
         await interaction.send("キャンセルされました。")
     else:
         await interaction.send("Error")
-
-@bot.command()
-async def sinfo(ctx):
-    await sakuyainfo(ctx)
 
 
 #--- bot.event ---------------
