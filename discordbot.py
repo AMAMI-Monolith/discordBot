@@ -37,7 +37,7 @@ async def support(message):
         msg = f'{message.author.mention} さんからサポートの依頼です。'
         msg_reply = f'{message.author.mention} \n管理人にメッセージを送信しました。'
         await admin.send(msg)
-        await message.channel.send(msg_reply, ephemeral=True)
+        await message.channel.send(msg_reply)
 
 
 @bot.command()
@@ -53,7 +53,7 @@ async def site(message):
         fname="logo.png "
         file = discord.File(fp="img/logo.png",filename=fname,spoiler=False)
         embed.set_image(url=f"attachment://{fname}")
-        await message.send(file=file, embed=embed, ephemeral=True)
+        await message.send(file=file, embed=embed)
         await buttons.send(
             channel = message.channel.id,
             components = [
@@ -138,7 +138,7 @@ async def help(message):
         fname="help.png" # アップロードするときのファイル名 自由に決めて良いですが、拡張子を忘れないように
         file = discord.File(fp="img/help.png",filename=fname,spoiler=False) # ローカル画像からFileオブジェクトを作成
         embed.set_image(url=f"attachment://{fname}") # embedに画像を埋め込むときのURLはattachment://ファイル名
-        await message.channel.send(file=file, embed=embed, ephemeral=True) # ファイルとembedを両方添えて送信する
+        await message.channel.send(file=file, embed=embed) # ファイルとembedを両方添えて送信する
 
 
 @bot.command()
