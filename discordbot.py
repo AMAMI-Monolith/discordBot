@@ -1,10 +1,11 @@
 import discord
 import traceback
+import discord_interactions
 from importlib.resources import contents
 from discord.ext  import commands
 from discord_buttons_plugin import *
 from discord.utils import get
-from dislash import InteractionClient, SelectMenu, SelectOption
+from dislash import InteractionClient, SelectMenu, SelectOption, InteractionClient
 from discord_components import DiscordComponents, ComponentsBot, Button, Select, SelectOption
 from os import getenv
 
@@ -147,7 +148,7 @@ async def help(message):
 @bot.command()
 async def sakuyainfo(ctx):
     await ctx.send(
-        "Pアイドルを選んでください。",
+        contents="Pアイドルを選んでください。",
         components = [
             Select(
                 placeholder = "カード名を選択してください。",
