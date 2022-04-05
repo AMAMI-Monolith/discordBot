@@ -15,14 +15,14 @@ ADMIN_ID = '260333442489647105'
 token = 'OTQ4NDQ1Mzc3MjM1OTMxMjA4.Yh76lw.K5DHomY8LQVirPKqa10JVqu14-8'
 
 #-------------------------------
-bot = ComponentsBot('!')
-bot = commands.Bot(
+bot = discord.ext.commands.Bot(
     command_prefix = "!",
     case_insensitive= True, #コマンドの大文字小文字を無視する(True)
     help_command = None, #標準のhelpコマンドを無効化する(None)
     intents=discord.Intents.all()
 )
 discord.member = True
+DiscordComponents(bot)
 buttons = ButtonsClient(bot)
 slash = InteractionClient(bot)
 #-------------------------------
@@ -143,9 +143,9 @@ async def help(message):
         await message.channel.send(file=file, embed=embed) # ファイルとembedを両方添えて送信する
 
 
-@bot.command()
-async def sakuyainfo(message):
-    await message.send(content= "Pアイドルを選んでください。", components = [Select(
+
+async def sakuyainfo(ctx):
+    await ctx.send(content= "Pアイドルを選んでください。", components = [Select(
                                                                                                 placeholder = "知りたいカード名を選択してください。",
                                                                                                 options=[
                                                                                                     SelectOption(label= "[P]白いツバサ", value= "白いツバサ"),
@@ -158,7 +158,7 @@ async def sakuyainfo(message):
                                                                                                 ],
                                                                                                 custom_id = "card_choice"
     )])
-    interaction = await bot.wait_for('select_option', check=lambda inter: inter.custom_id == 'card_choice' and inter.user == message.author)
+    interaction = await bot.wait_for('select_option', check=lambda inter: inter.custom_id == 'card_choice' and inter.user == ctx.author)
     res = interaction.values[0]
 
     if res == "白いツバサ":
@@ -177,6 +177,10 @@ async def sakuyainfo(message):
         await interaction.send("キャンセルされました。")
     else:
         await interaction.send("Error")
+
+@bot.command()
+async def sinfo(ctx):
+    await sakuyainfo(ctx):
 
 
 #--- bot.event ---------------
