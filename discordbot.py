@@ -143,12 +143,6 @@ async def help(message):
 
 
 @bot.command()
-async def sinfo(message):
-    await sakuyainfo(message)
-
-
-
-
 async def sakuyainfo(message):
     await message.send(content= "Pアイドルを選んでください。", components = [Select(
                                                                                                 placeholder = "知りたいカード名を選択してください。",
@@ -163,7 +157,6 @@ async def sakuyainfo(message):
                                                                                                 ],
                                                                                                 custom_id = "card_choice"
     )])
-
     interaction = await bot.wait_for('select_option', check=lambda inter: inter.custom_id == 'card_choice' and inter.user == message.author)
     res = interaction.values[0]
 
@@ -183,10 +176,6 @@ async def sakuyainfo(message):
         await interaction.send("キャンセルされました。")
     else:
         await interaction.send("Error")
-
-
-
-
 
 
 #--- bot.event ---------------
