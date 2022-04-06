@@ -1,6 +1,5 @@
 import discord
 import traceback
-import discord_interactions
 from importlib.resources import contents
 from discord.ext  import commands
 from discord_buttons_plugin import *
