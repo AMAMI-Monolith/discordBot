@@ -1,3 +1,6 @@
+from ast import Lambda
+from ntpath import join
+from tabnanny import check
 import discord
 import traceback
 from importlib.resources import contents
@@ -155,15 +158,17 @@ async def help(message):
                     SelectOption(label="✕ キャンセル", value= "Cancel")
 ]"""
 
+#------
 @bot.command()
-async def tests(ctx):
+async def test(ctx):
     msg = await ctx.send(
-        "Pアイドルを選んでください。",
-        components = [
+        "調べたいPアイドルを選択してください。",
+        components=[
             SelectMenu(
                 custom_id="idolpicks",
-                placeholder = "カード名を選択してください。",
-                options = [
+                placeholder="カード名を選択して下さい。",
+                max_values=1,
+                options=[
                     SelectOption(label= "[P]白いツバサ", value= "白いツバサ"),
                     SelectOption(label= "[P]真紅一輪",value= "真紅一輪"),
                     SelectOption(label= "[P]雪染めロマンティカ",value= "雪染めロマンティカ"),
@@ -175,49 +180,37 @@ async def tests(ctx):
             )
         ]
     )
-"""    interaction = await bot.wait_for("select_option")
-    res = interaction.values[0]
-    if res == "白いツバサ":
-        await interaction.respond("1選択したカードは" + res + "です。")
-    elif res == "真紅一輪":
-        await interaction.send("2選択したカードは" + res + "です。")
-    elif res == "雪染めロマンティカ":
-        await interaction.send("3選択したカードは" + res + "です。")
-    elif res == "ふれあい、おもいあい":
-        await interaction.send("4選択したカードは" + res + "です。")
-    elif res == "秘めやかファンサービス":
-        await interaction.send("5選択したカードは" + res + "です。")
-    elif res == "アイドルロード":
-        await interaction.send("6選択したカードは" + res + "です。")
-    elif res == "Cancel":
-        await interaction.send("キャンセルされました。")
-    else:
-        await interaction.send("Error")"""
-
-#------
-@bot.command()
-async def test(ctx):
-    msg = await ctx.send(
-        "This message has a select menu!",
-        components=[
-            SelectMenu(
-                custom_id="test",
-                placeholder="Choose up to 2 options",
-                max_values=2,
-                options=[
-                    SelectOption("Option 1", "value 1"),
-                    SelectOption("Option 2", "value 2"),
-                    SelectOption("Option 3", "value 3")
-                ]
-            )
-        ]
-    )
 
 @bot.event
 async def on_dropdown(inter):
-    # Tell which options you received
     labels = [option.label for option in inter.select_menu.selected_options]
-    await inter.reply(f"Your choices: {', '.join(labels)}")
+    values= [option.value for option in inter.select_menu.selected_options]
+    #res =  inter.select_menu.selected_options
+    #await inter.reply(f"Your choices: {labels}") #Your choices: [labels]
+    #await inter.reply(f"Your values: {values}") #Your values: ['白いツバサ']
+    #interaction = await bot.wait_for("select_option", check=lambda inter: inter.custom_id == 'idolpicks')
+    await clear(inter, 0)
+    if labels == ['[P]白いツバサ']:
+        await inter.reply("選択したカードは[P]白いツバサ 白瀬咲耶です。")
+
+
+
+
+
+    elif labels == ['[P]真紅一輪']:
+        await inter.reply(f"選択したカードは[P]真紅一輪 白瀬咲耶です。")
+    elif labels == ['[P]雪染めロマンティカ']:
+        await inter.reply("選択したカードは[P]雪染めロマンティカ 白瀬咲耶です。")
+    elif labels == ['[P]ふれあい、おもいあい']:
+        await inter.reply("選択したカードは" + values + "白瀬咲耶です。")
+    elif labels == ['[P]秘めやかファンサービス']:
+        await inter.reply("選択したカードは" + values + "白瀬咲耶です。")
+    elif labels == ['[P]アイドルロード']:
+        await inter.reply("選択したカードは" + values + "白瀬咲耶です。")
+    elif labels == ['✕ キャンセル']:
+        await inter.reply("キャンセルされました。")
+        await clear(inter, 0)
+    else:
 
 
 
