@@ -1,6 +1,7 @@
 from ast import Lambda
 from ntpath import join
 from tabnanny import check
+from tracemalloc import start
 import discord
 import traceback
 from importlib.resources import contents
@@ -192,6 +193,7 @@ async def on_dropdown(inter):
 
     await clear(inter, 0)
     if labels == ['[P]白いツバサ']:
+
         await inter.reply("選択したカードは[P]白いツバサ 白瀬咲耶です。")
         embed=discord.Embed(title="カード情報", color=0xff0000)
         embed.add_field(name="カード名", value="【アイドルロード】白瀬 咲耶", inline=False)
@@ -214,7 +216,7 @@ async def on_dropdown(inter):
         await inter.reply("")
 
 
-
+'Todo :aaa'
 #--- bot.event ---------------
 @bot.event
 async def on_ready():
