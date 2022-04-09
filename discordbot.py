@@ -170,7 +170,7 @@ async def sakuyainfo(ctx):
                 placeholder="カード名を選択して下さい。",
                 max_values=1,
                 options=[
-                    SelectOption(label= "[P]アイドルロード", value= "アイドルロード"),
+                    SelectOption(label= "[P]白いツバサ", value= "白いツバサ"),
                     SelectOption(label= "[P]真紅一輪",value= "真紅一輪"),
                     SelectOption(label= "[P]雪染めロマンティカ",value= "雪染めロマンティカ"),
                     SelectOption(label= "[P]ふれあい、おもいあい",value= "ふれあい、おもいあい"),
@@ -190,51 +190,23 @@ async def on_dropdown(inter):
     #await inter.reply(f"Your choices: {labels}") #Your choices: [labels]
     #await inter.reply(f"Your values: {values}") #Your values: ['白いツバサ']
     #interaction = await bot.wait_for("select_option", check=lambda inter: inter.custom_id == 'idolpicks')
+
     await clear(inter, 0)
-    if labels == ['[P]アイドルロード']:
+    if labels == ['[P]白いツバサ']:
         embed=discord.Embed(title="カード情報", color=0xff0000)
-        fname=("101.png")
-        file = discord.File('img/sakuya/101.png',filename=fname,spoiler=False)
-        embed.set_image(url='attachment://{fname}')
-        embed.add_field(name="カード名", value="101", inline=False)
-        embed.add_field(name="ライブスキル", value="**咲耶アピール++**\nDance2.5倍アピール\n**咲耶アピール+++**\nDance3倍アピール\n**咲耶アピール++++**\nDance3.5倍アピール\n", inline=False)
-        await inter.reply(file=file, embed=embed)
-
-
-    elif labels == ['[P]真紅一輪']:
-        embed=discord.Embed(title="カード情報", color=0xff0000)
-        embed.set_thumbnail(url="img/sakuya/【真紅一輪】白瀬 咲耶.png")
-        embed.add_field(name="カード名", value="【真紅一輪】白瀬 咲耶", inline=False)
-        embed.add_field(name="ライブスキル", value="真紅一輪\nVocal2.5倍アピール\n真紅一輪+\nDance3.5アピール", inline=False)
-        await inter.reply(embed=embed)
-
-    elif labels == ['[P]雪染めロマンティカ']:
-        embed=discord.Embed(title="カード情報", color=0xff0000)
-        embed.set_thumbnail(url="img/sakuya/【雪染めロマンティカ】白瀬 咲耶.png")
-        embed.add_field(name="カード名", value="【雪染めロマンティカ】白瀬 咲耶", inline=False)
-        embed.add_field(name="ライブスキル", value="雪染めロマンティカ\nVocal1.5倍アピール/影響力10%DOWN[3ターン]\n雪染めロマンティカ+\nDance2倍アピール/影響力30%DOWN[3ターン]\n", inline=False)
-        await inter.reply(embed=embed)
-
-    elif labels == ['[P]ふれあい、おもいあい']:
-        embed=discord.Embed(title="カード情報", color=0xff0000)
-        embed.set_thumbnail(url="img/sakuya/【ふれあい、おもいあい】白瀬 咲耶.png")
-        embed.add_field(name="カード名", value="【ふれあい、おもいあい】白瀬 咲耶", inline=False)
-        embed.add_field(name="ライブスキル", value="**咲耶アピール++**\nDance2.5倍アピール\n**咲耶アピール+++**\nDance3倍アピール\n**咲耶アピール++++**\nDance3.5倍アピール\n", inline=False)
-        await inter.reply(embed=embed)
-
-    elif labels == ['[P]秘めやかファンサービス']:
-        embed=discord.Embed(title="カード情報", color=0xff0000)
-        embed.set_thumbnail(url="img/sakuya/【秘めやかファンサービス】白瀬 咲耶.png")
-        embed.add_field(name="カード名", value="【秘めやかファンサービス】白瀬 咲耶", inline=False)
-        embed.add_field(name="ライブスキル", value="**咲耶アピール++**\nDance2.5倍アピール\n**咲耶アピール+++**\nDance3倍アピール\n**咲耶アピール++++**\nDance3.5倍アピール\n", inline=False)
-        await inter.reply(embed=embed)
-    elif labels == ['[P]アイドルロード']:
-        embed=discord.Embed(title="カード情報", color=0xff0000)
-        embed.set_thumbnail(url="img/sakuya/【アイドルロード】白瀬 咲耶.png")
         embed.add_field(name="カード名", value="【アイドルロード】白瀬 咲耶", inline=False)
-        embed.add_field(name="ライブスキル", value="**咲耶アピール++**\nDance2.5倍アピール\n**咲耶アピール+++**\nDance3倍アピール\n**咲耶アピール++++**\nDance3.5倍アピール\n", inline=False)
+        embed.add_field(name="ライブスキル", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
         await inter.reply(embed=embed)
-
+    elif labels == ['[P]真紅一輪']:
+        await inter.reply(f"選択したカードは[P]真紅一輪 白瀬咲耶です。")
+    elif labels == ['[P]雪染めロマンティカ']:
+        await inter.reply("選択したカードは[P]雪染めロマンティカ 白瀬咲耶です。")
+    elif labels == ['[P]ふれあい、おもいあい']:
+        await inter.reply("選択したカードは" + values + "白瀬咲耶です。")
+    elif labels == ['[P]秘めやかファンサービス']:
+        await inter.reply("選択したカードは" + values + "白瀬咲耶です。")
+    elif labels == ['[P]アイドルロード']:
+        await inter.reply("選択したカードは" + values + "白瀬咲耶です。")
     elif labels == ['✕ キャンセル']:
         await inter.reply("キャンセルされました。")
         await clear(inter, 0)
