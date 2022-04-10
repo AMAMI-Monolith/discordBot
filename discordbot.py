@@ -199,7 +199,7 @@ async def on_dropdown(inter):
         #embed.add_field(name="カード名", value="【アイドルロード】白瀬 咲耶", inline=False)
         #embed.add_field(name="ライブスキル", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
         await inter.send(file=file, embed=embed)
-
+    #rest
 
     elif labels == ['[P]真紅一輪']:
         #await inter.reply(f"選択したカードは[P]真紅一輪 白瀬咲耶です。")
