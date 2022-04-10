@@ -198,6 +198,10 @@ async def on_dropdown(inter):
         embed.add_field(name="カード名", value="【アイドルロード】白瀬 咲耶", inline=False)
         embed.add_field(name="ライブスキル", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
         await inter.channel.send(file=file, embed=embed)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0995e5267156b7ec396140fcb43273839626a4dc
     elif labels == ['[P]真紅一輪']:
         #await inter.reply(f"選択したカードは[P]真紅一輪 白瀬咲耶です。")
         embed = discord.Embed(title="カード情報", description="Pアイドルカードの情報です。", color=0xF067A6)
@@ -207,6 +211,11 @@ async def on_dropdown(inter):
         embed.add_field(name="カード名", value="【真紅一輪】白瀬 咲耶", inline=False)
         embed.add_field(name="ライブスキル(test)", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
         await inter.channel.send(file=file, embed=embed)
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 0995e5267156b7ec396140fcb43273839626a4dc
     elif labels == ['[P]雪染めロマンティカ']:
         await inter.reply("選択したカードは[P]雪染めロマンティカ 白瀬咲耶です。")
     elif labels == ['[P]ふれあい、おもいあい']:
