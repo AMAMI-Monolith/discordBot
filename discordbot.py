@@ -184,7 +184,6 @@ async def sakuyainfo(ctx):
 @bot.event
 async def on_dropdown(inter):
     labels = [option.label for option in inter.select_menu.selected_options]
-    values= [option.value for option in inter.select_menu.selected_options]
     #res =  inter.select_menu.selected_options
     #await inter.reply(f"Your choices: {labels}") #Your choices: [labels]
     #await inter.reply(f"Your values: {values}") #Your values: ['白いツバサ']
@@ -199,7 +198,6 @@ async def on_dropdown(inter):
         embed.add_field(name="カード名", value="【アイドルロード】白瀬 咲耶", inline=False)
         embed.add_field(name="ライブスキル", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
         await inter.channel.send(file=file, embed=embed)
-
     elif labels == ['[P]真紅一輪']:
         #await inter.reply(f"選択したカードは[P]真紅一輪 白瀬咲耶です。")
         embed = discord.Embed(title="カード情報", description="Pアイドルカードの情報です。", color=0xF067A6)
@@ -209,8 +207,6 @@ async def on_dropdown(inter):
         embed.add_field(name="カード名", value="【真紅一輪】白瀬 咲耶", inline=False)
         embed.add_field(name="ライブスキル(test)", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
         await inter.channel.send(file=file, embed=embed)
-
-
     elif labels == ['[P]雪染めロマンティカ']:
         await inter.reply("選択したカードは[P]雪染めロマンティカ 白瀬咲耶です。")
     elif labels == ['[P]ふれあい、おもいあい']:
