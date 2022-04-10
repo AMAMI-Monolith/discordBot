@@ -190,12 +190,12 @@ async def on_dropdown(inter):
     #await inter.reply(f"Your values: {values}") #Your values: ['白いツバサ']
     #interaction = await bot.wait_for("select_option", check=lambda inter: inter.custom_id == 'idolpicks')
 
-    await clear(inter, 0)
-    if labels == ['[P]白いツバサ']:
+    #await clear(inter, 0)
+    if labels == ['[P]アイドルロード']:
         embed=discord.Embed(title="カード情報", color=0xff0000)
         fname="101.png"
         file = discord.File(fp="img/sakuya/101.png",filename=fname,spoiler=False)
-        embed.set_thumbnail(url=f"attachment://{fname}")
+        embed.set_image(url=f'attachment://{fname}')
         embed.add_field(name="カード名", value="【アイドルロード】白瀬 咲耶", inline=False)
         embed.add_field(name="ライブスキル", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
         await inter.reply(file=file, embed=embed)
@@ -206,7 +206,7 @@ async def on_dropdown(inter):
     elif labels == ['[P]ふれあい、おもいあい']:
         await inter.reply("選択したカードは" + values + "白瀬咲耶です。")
     elif labels == ['[P]秘めやかファンサービス']:
-        await inter.reply("選択したカードは" + values + "白瀬咲耶です。")
+        await inter.reply(f"選択したカードは{labels}白瀬咲耶です。")
     elif labels == ['[P]アイドルロード']:
         await inter.reply("選択したカードは" + values + "白瀬咲耶です。")
     elif labels == ['✕ キャンセル']:
