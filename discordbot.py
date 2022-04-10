@@ -149,15 +149,14 @@ async def help(message):
         await message.channel.send(file=file, embed=embed) # ファイルとembedを両方添えて送信する
 
 
-"""Sakuyaselect =[
-                    SelectOption(label= "[P]白いツバサ", value= "白いツバサ"),
+Sakuyaselect =[
+                    SelectOption(label= "[P]アイドルロード", value= "アイドルロード"),
                     SelectOption(label= "[P]真紅一輪",value= "真紅一輪"),
                     SelectOption(label= "[P]雪染めロマンティカ",value= "雪染めロマンティカ"),
                     SelectOption(label= "[P]ふれあい、おもいあい",value= "ふれあい、おもいあい"),
                     SelectOption(label= "[P]秘めやかファンサービス",value= "秘めやかファンサービス"),
-                    SelectOption(label= "[P]アイドルロード",value= "アイドルロード"),
                     SelectOption(label= "✕ キャンセル", value= "Cancel")
-]"""
+]
 
 #------
 @bot.command()
@@ -169,14 +168,7 @@ async def pinfo(ctx):
                 custom_id="idolpicks",
                 placeholder="カード名を選択して下さい。",
                 max_values=1,
-                options = [
-                    SelectOption(label= "[P]アイドルロード", value= "アイドルロード"),
-                    SelectOption(label= "[P]真紅一輪",value= "真紅一輪"),
-                    SelectOption(label= "[P]雪染めロマンティカ",value= "雪染めロマンティカ"),
-                    SelectOption(label= "[P]ふれあい、おもいあい",value= "ふれあい、おもいあい"),
-                    SelectOption(label= "[P]秘めやかファンサービス",value= "秘めやかファンサービス"),
-                    SelectOption(label= "✕ キャンセル", value= "Cancel")
-                ]
+                options = Sakuyaselect
             )
         ]
     )
