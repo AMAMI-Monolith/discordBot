@@ -156,12 +156,12 @@ async def help(message):
                     SelectOption(label= "[P]ふれあい、おもいあい",value= "ふれあい、おもいあい"),
                     SelectOption(label= "[P]秘めやかファンサービス",value= "秘めやかファンサービス"),
                     SelectOption(label= "[P]アイドルロード",value= "アイドルロード"),
-                    SelectOption(label="✕ キャンセル", value= "Cancel")
+                    SelectOption(label= "✕ キャンセル", value= "Cancel")
 ]"""
 
 #------
 @bot.command()
-async def sakuyainfo(ctx):
+async def pinfo(ctx):
     msg = await ctx.send(
         "調べたいPアイドルを選択してください。",
         components=[
@@ -169,7 +169,7 @@ async def sakuyainfo(ctx):
                 custom_id="idolpicks",
                 placeholder="カード名を選択して下さい。",
                 max_values=1,
-                options=[
+                options = [
                     SelectOption(label= "[P]アイドルロード", value= "アイドルロード"),
                     SelectOption(label= "[P]真紅一輪",value= "真紅一輪"),
                     SelectOption(label= "[P]雪染めロマンティカ",value= "雪染めロマンティカ"),
@@ -184,10 +184,6 @@ async def sakuyainfo(ctx):
 @bot.event
 async def on_dropdown(inter):
     labels = [option.label for option in inter.select_menu.selected_options]
-    #res =  inter.select_menu.selected_options
-    #await inter.reply(f"Your choices: {labels}") #Your choices: [labels]
-    #await inter.reply(f"Your values: {values}") #Your values: ['白いツバサ']
-    #interaction = await bot.wait_for("select_option", check=lambda inter: inter.custom_id == 'idolpicks')
 
     #await clear(inter, 0)
     if labels == ['[P]アイドルロード']:
@@ -197,7 +193,7 @@ async def on_dropdown(inter):
         embed.set_thumbnail(url=f"attachment://{fname}")
         embed.add_field(name="カード名", value="【アイドルロード】白瀬 咲耶", inline=False)
         embed.add_field(name="ライブスキル", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
-        await inter.channel.reply(file=file, embed=embed)
+        await inter.channel.send(file=file, embed=embed)
 
     elif labels == ['[P]真紅一輪']:
         embed = discord.Embed(title="カード情報", description="Pアイドルカードの情報です。", color=0xF067A6)
@@ -206,7 +202,7 @@ async def on_dropdown(inter):
         embed.set_thumbnail(url=f"attachment://{fname}")
         embed.add_field(name="カード名", value="【真紅一輪】白瀬 咲耶", inline=False)
         embed.add_field(name="ライブスキル(test)", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
-        await inter.channel.reply(file=file, embed=embed)
+        await inter.channel.send(file=file, embed=embed)
 
     elif labels == ['[P]雪染めロマンティカ']:
         embed = discord.Embed(title="カード情報", description="Pアイドルカードの情報です。", color=0xF067A6)
@@ -215,7 +211,7 @@ async def on_dropdown(inter):
         embed.set_thumbnail(url=f"attachment://{fname}")
         embed.add_field(name="カード名", value="【雪染めロマンティカ】白瀬 咲耶", inline=False)
         embed.add_field(name="ライブスキル(test)", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
-        await inter.channel.reply(file=file, embed=embed)
+        await inter.channel.send(file=file, embed=embed)
 
     elif labels == ['[P]ふれあい、おもいあい']:
         embed = discord.Embed(title="カード情報", description="Pアイドルカードの情報です。", color=0xF067A6)
