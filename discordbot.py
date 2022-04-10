@@ -192,7 +192,7 @@ async def on_dropdown(inter):
 
     #await clear(inter, 0)
     if labels == ['[P]アイドルロード']:
-        embed=discord.Embed(title="カード情報", color=0xff0000)
+        embed=discord.Embed(title="カード情報",description="Pアイドルカードの情報です。" , color=0xff0000)
         fname="idolroad.png"
         file = discord.File(fp="img/idolroad.png",filename=fname,spoiler=False)
         embed.set_image(url=f"attachment://{fname}")
@@ -203,7 +203,7 @@ async def on_dropdown(inter):
 
     elif labels == ['[P]真紅一輪']:
         #await inter.reply(f"選択したカードは[P]真紅一輪 白瀬咲耶です。")
-        embed = discord.Embed(title="Botがオンラインになりました。",description="Pアイドルカードの情報です。" ,color=0x29f306)
+        embed = discord.Embed(title="Botがオンラインになりました。" ,color=0x29f306)
         fname="BotOnline.png"
         file = discord.File(fp="img/BotOnline.png",filename=fname,spoiler=False)
         embed.set_image(url=f"attachment://{fname}")
