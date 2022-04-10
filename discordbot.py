@@ -193,12 +193,12 @@ async def on_dropdown(inter):
     #await clear(inter, 0)
     if labels == ['[P]アイドルロード']:
         embed=discord.Embed(title="カード情報", color=0xff0000)
-        fname="101.png"
-        file = discord.File(fp="img/sakuya/101.png",filename=fname,spoiler=False)
+        fname="p115.jpg"
+        file = discord.File(fp="discordBot/img/sakuya/p115.jpg",filename=fname,spoiler=False)
         embed.set_image(url=f'attachment://{fname}')
         embed.add_field(name="カード名", value="【アイドルロード】白瀬 咲耶", inline=False)
         embed.add_field(name="ライブスキル", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
-        await inter.reply(file=file, embed=embed)
+        await inter.send(file=file, embed=embed)
     elif labels == ['[P]真紅一輪']:
         await inter.reply(f"選択したカードは[P]真紅一輪 白瀬咲耶です。")
     elif labels == ['[P]雪染めロマンティカ']:
@@ -215,6 +215,12 @@ async def on_dropdown(inter):
     else:
         await inter.reply("")
 
+    embed=discord.Embed(title="title", description="description", color=0xff0000)
+    embed.set_author(name="name", url="url", icon_url="icon")
+    embed.set_thumbnail(url="thumbnail")
+    embed.add_field(name="field", value="value", inline=False)
+    embed.set_footer(text="footer")
+    await ctx.send(embed=embed)
 
 'Todo :aaa'
 #--- bot.event ---------------
@@ -223,7 +229,7 @@ async def on_ready():
     # このbotのサーバーにオンラインになった時に管理人にDM(ダイレクトメッセージ)を送信する。
     print('------')
     print('Login infomation>>>')
-    print('v1.03   ')
+    print('v1.04  ')
     print(f'{bot.user.name}がログインしたよ。')
     print('------')
     await bot.change_presence(activity=discord.Game(name="!help"))
