@@ -162,7 +162,7 @@ Sakuyacard = [
     ["[P]真紅一輪","sakuya_pi114.png","img/sakuya_pi114.png"],
     ["[P]雪染めロマンティカ","sakuya_pi113.png","img/sakuya_pi113.png"],
     ["[P]ふれあい、おもいあい","sakuya_pi112.png","img/sakuya_pi112.png"],
-    ["[P]秘めやかファンサービス","sakuya_pi111.png","img/sakuya_pi111.png"],
+    ["[P]秘めやかファンサービス","sakuya_pi111.png","img/sakuya_pi111.png"]
 ]
 
 #------
