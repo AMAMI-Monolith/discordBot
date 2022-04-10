@@ -197,33 +197,44 @@ async def on_dropdown(inter):
         embed.set_thumbnail(url=f"attachment://{fname}")
         embed.add_field(name="カード名", value="【アイドルロード】白瀬 咲耶", inline=False)
         embed.add_field(name="ライブスキル", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
-        await inter.channel.send(file=file, embed=embed)
-<<<<<<< HEAD
-=======
+        await inter.channel.reply(file=file, embed=embed)
 
->>>>>>> 0995e5267156b7ec396140fcb43273839626a4dc
     elif labels == ['[P]真紅一輪']:
-        #await inter.reply(f"選択したカードは[P]真紅一輪 白瀬咲耶です。")
         embed = discord.Embed(title="カード情報", description="Pアイドルカードの情報です。", color=0xF067A6)
         fname="sakuya_pi114.png"
         file = discord.File(fp="img/sakuya_pi114.png",filename=fname, spoiler=False)
         embed.set_thumbnail(url=f"attachment://{fname}")
         embed.add_field(name="カード名", value="【真紅一輪】白瀬 咲耶", inline=False)
         embed.add_field(name="ライブスキル(test)", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
-        await inter.channel.send(file=file, embed=embed)
-<<<<<<< HEAD
-=======
+        await inter.channel.reply(file=file, embed=embed)
 
-
->>>>>>> 0995e5267156b7ec396140fcb43273839626a4dc
     elif labels == ['[P]雪染めロマンティカ']:
-        await inter.reply("選択したカードは[P]雪染めロマンティカ 白瀬咲耶です。")
+        embed = discord.Embed(title="カード情報", description="Pアイドルカードの情報です。", color=0xF067A6)
+        fname="sakuya_pi113.png"
+        file = discord.File(fp="img/sakuya_pi113.png",filename=fname, spoiler=False)
+        embed.set_thumbnail(url=f"attachment://{fname}")
+        embed.add_field(name="カード名", value="【雪染めロマンティカ】白瀬 咲耶", inline=False)
+        embed.add_field(name="ライブスキル(test)", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
+        await inter.channel.reply(file=file, embed=embed)
+
     elif labels == ['[P]ふれあい、おもいあい']:
-        await inter.reply("選択したカードは" + values + "白瀬咲耶です。")
+        embed = discord.Embed(title="カード情報", description="Pアイドルカードの情報です。", color=0xF067A6)
+        fname="sakuya_pi112.png"
+        file = discord.File(fp="img/sakuya_pi112.png",filename=fname, spoiler=False)
+        embed.set_thumbnail(url=f"attachment://{fname}")
+        embed.add_field(name="カード名", value="【ふれあい、おもいあい】白瀬 咲耶", inline=False)
+        embed.add_field(name="ライブスキル(test)", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
+        await inter.channel.send(file=file, embed=embed)
+
     elif labels == ['[P]秘めやかファンサービス']:
-        await inter.reply(f"選択したカードは{labels}白瀬咲耶です。")
-    elif labels == ['[P]アイドルロード']:
-        await inter.reply("選択したカードは" + values + "白瀬咲耶です。")
+        embed = discord.Embed(title="カード情報", description="Pアイドルカードの情報です。", color=0xF067A6)
+        fname="sakuya_pi111.png"
+        file = discord.File(fp="img/sakuya_pi111.png",filename=fname, spoiler=False)
+        embed.set_thumbnail(url=f"attachment://{fname}")
+        embed.add_field(name="カード名", value="【秘めやかファンサービス】白瀬 咲耶", inline=False)
+        embed.add_field(name="ライブスキル(test)", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
+        await inter.channel.send(file=file, embed=embed)
+
     elif labels == ['✕ キャンセル']:
         await inter.reply("キャンセルされました。")
         await clear(inter, 0)
