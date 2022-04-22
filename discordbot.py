@@ -149,15 +149,15 @@ async def help(message):
         await message.channel.send(file=file, embed=embed) # ファイルとembedを両方添えて送信する
 
 
-"""Sakuyaselect =[
-                    SelectOption(label= "[P]白いツバサ", value= "白いツバサ"),
-                    SelectOption(label= "[P]真紅一輪",value= "真紅一輪"),
-                    SelectOption(label= "[P]雪染めロマンティカ",value= "雪染めロマンティカ"),
-                    SelectOption(label= "[P]ふれあい、おもいあい",value= "ふれあい、おもいあい"),
-                    SelectOption(label= "[P]秘めやかファンサービス",value= "秘めやかファンサービス"),
-                    SelectOption(label= "[P]アイドルロード",value= "アイドルロード"),
+
+Sakuyaselect =[
+                    SelectOption(label= "[P]アイドルロード", value= "sakuya_pi115.png"),
+                    SelectOption(label= "[P]真紅一輪",value= "sakuya_pi114.png"),
+                    SelectOption(label= "[P]雪染めロマンティカ",value= "sakuya_pi113.png"),
+                    SelectOption(label= "[P]ふれあい、おもいあい",value= "sakuya_pi112.png"),
+                    SelectOption(label= "[P]秘めやかファンサービス",value= "sakuya_pi111.png"),
                     SelectOption(label= "✕ キャンセル", value= "Cancel")
-]"""
+]
 
 #------
 @bot.command()
