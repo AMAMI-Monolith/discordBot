@@ -201,7 +201,7 @@ async def on_dropdown(inter):
         file = discord.File(fp="img/sakuya_pi114.png",filename=fname, spoiler=False)
         embed.set_thumbnail(url=f"attachment://{fname}")
         embed.add_field(name="カード名", value="【真紅一輪】白瀬 咲耶", inline=False)
-        embed.add_field(name="ライブスキル(test)", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
+        embed.add_field(name="ライブスキル(test)", value="真紅一輪\nVocal2.5倍アピール\n真紅一輪+\nDance3.5倍アピール\n", inline=False)
         await inter.channel.send(file=file, embed=embed)
 
     elif labels == ['[P]雪染めロマンティカ']:
@@ -210,7 +210,7 @@ async def on_dropdown(inter):
         file = discord.File(fp="img/sakuya_pi113.png",filename=fname, spoiler=False)
         embed.set_thumbnail(url=f"attachment://{fname}")
         embed.add_field(name="カード名", value="【雪染めロマンティカ】白瀬 咲耶", inline=False)
-        embed.add_field(name="ライブスキル(test)", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
+        embed.add_field(name="ライブスキル(test)", value="雪染めロマンティカ\nVocal1.5倍アピール/影響力10%DOWN[3ターン]\n雪染めロマンティカ+\nDance2倍アピール/影響力10%DOWN[3ターン]\n", inline=False)
         await inter.channel.send(file=file, embed=embed)
 
     elif labels == ['[P]ふれあい、おもいあい']:
@@ -219,7 +219,7 @@ async def on_dropdown(inter):
         file = discord.File(fp="img/sakuya_pi112.png",filename=fname, spoiler=False)
         embed.set_thumbnail(url=f"attachment://{fname}")
         embed.add_field(name="カード名", value="【ふれあい、おもいあい】白瀬 咲耶", inline=False)
-        embed.add_field(name="ライブスキル(test)", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
+        embed.add_field(name="ライブスキル(test)", value="ふれあい、おもいあい\nVisual最大3.5倍アピール[メンタルが少ないほど効果UP]\nVocal最大5倍アピール[メンタルが少ないほど効果UP]\n", inline=False)
         await inter.channel.send(file=file, embed=embed)
 
     elif labels == ['[P]秘めやかファンサービス']:
@@ -228,7 +228,7 @@ async def on_dropdown(inter):
         file = discord.File(fp="img/sakuya_pi111.png",filename=fname, spoiler=False)
         embed.set_thumbnail(url=f"attachment://{fname}")
         embed.add_field(name="カード名", value="【秘めやかファンサービス】白瀬 咲耶", inline=False)
-        embed.add_field(name="ライブスキル(test)", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
+        embed.add_field(name="ライブスキル(test)", value="秘めやかファンサービス\nDance2.5倍アピール\n秘めやかファンサービス+\nVisual3.5倍アピール\n", inline=False)
         await inter.channel.send(file=file, embed=embed)
 
     elif labels == ['✕ キャンセル']:
