@@ -69,25 +69,25 @@ async def site(message):
                     Button(
                         style   = ButtonType().Link,
                         label   = "公式サイト",
-                        url     = 'https://shinycolors.idolmaster.jp/',
+                        url     = '########',
                         disabled= False
                     ),
                     Button(
                         style   = ButtonType().Link,
                         label   = "お知らせ",
-                        url     = 'https://shinycolors.idolmaster.jp/news/',
+                        url     = '########',
                         disabled= False
                     ),
                     Button(
                         style   = ButtonType().Link,
                         label   = "はばたきラジオステーション",
-                        url     = 'https://asobistore.jp/content/title/Idolmaster/shinyradio/',
+                        url     = '########',
                         disabled= False
                     ),
                     Button(
                         style   = ButtonType().Link,
                         label   = "公式Twitter",
-                        url     = 'https://twitter.com/imassc_official/',
+                        url     = '########',
                         disabled= False
                     )
                 ])
@@ -139,7 +139,7 @@ async def help(message):
     else:
         embed=discord.Embed(title="ヘルプ機能", description="コマンドの説明。最初に『!』をつけてください。", color=0xff9300)
         embed.add_field(name="!clear X", value="Xのだけメッセージを消す。(Xは数値)", inline=True)
-        embed.add_field(name="!site", value="『シャニマス公式』などへのリンクを表示する。", inline=True)
+        embed.add_field(name="!site", value="『########』などへのリンクを表示する。", inline=True)
         embed.add_field(name="!mkch", value="同カテゴリにテキストチャンネルを作成する。", inline=True)
         embed.add_field(name="!Support", value="管理人にサポートメッセージを送る(DM)", inline=False)
         embed.add_field(name="!cleanup (※管理人のみ)", value="テキストチャンネルのメッセージをすべて消す", inline=False)
@@ -148,102 +148,13 @@ async def help(message):
         embed.set_image(url=f"attachment://{fname}") # embedに画像を埋め込むときのURLはattachment://ファイル名
         await message.channel.send(file=file, embed=embed) # ファイルとembedを両方添えて送信する
 
-
-
-Sakuyaselect =[
-                    SelectOption(label= "[P]アイドルロード", value= "sakuya_pi115.png"),
-                    SelectOption(label= "[P]真紅一輪",value= "sakuya_pi114.png"),
-                    SelectOption(label= "[P]雪染めロマンティカ",value= "sakuya_pi113.png"),
-                    SelectOption(label= "[P]ふれあい、おもいあい",value= "sakuya_pi112.png"),
-                    SelectOption(label= "[P]秘めやかファンサービス",value= "sakuya_pi111.png"),
-                    SelectOption(label= "✕ キャンセル", value= "Cancel")
-]
-
-#------
-@bot.command()
-async def pinfo(ctx):
-    msg = await ctx.send(
-        "調べたいPアイドルを選択してください。",
-        components=[
-            SelectMenu(
-                custom_id="idolpicks",
-                placeholder="カード名を選択して下さい。",
-                max_values=1,
-                options = [
-                    SelectOption(label= "[P]アイドルロード", value= "アイドルロード"),
-                    SelectOption(label= "[P]真紅一輪",value= "真紅一輪"),
-                    SelectOption(label= "[P]雪染めロマンティカ",value= "雪染めロマンティカ"),
-                    SelectOption(label= "[P]ふれあい、おもいあい",value= "ふれあい、おもいあい"),
-                    SelectOption(label= "[P]秘めやかファンサービス",value= "秘めやかファンサービス"),
-                    SelectOption(label= "✕ キャンセル", value= "Cancel")
-                ]
-            )
-        ]
-    )
-
-@bot.event
-async def on_dropdown(inter):
-    labels = [option.label for option in inter.select_menu.selected_options]
-
-    #await clear(inter, 0)
-    if labels == ['[P]アイドルロード']:
-        embed=discord.Embed(title="カード情報",description="Pアイドルカードの情報です。" , color=0xF067A6)
-        fname= "sakuya_pi115.png"
-        file = discord.File(fp="img/sakuya_pi115.png")
-        embed.set_thumbnail(url=f"attachment://{fname}")
-        embed.add_field(name="カード名", value="【アイドルロード】白瀬 咲耶", inline=False)
-        embed.add_field(name="ライブスキル", value="咲耶アピール++\nDance2.5倍アピール\n咲耶アピール+++\nDance3倍アピール\n咲耶アピール++++\nDance3.5倍アピール\n", inline=False)
-        await inter.channel.send(file=file, embed=embed)
-
-    elif labels == ['[P]真紅一輪']:
-        embed = discord.Embed(title="カード情報", description="Pアイドルカードの情報です。", color=0xF067A6)
-        fname="sakuya_pi114.png"
-        file = discord.File(fp="img/sakuya_pi114.png",filename=fname, spoiler=False)
-        embed.set_thumbnail(url=f"attachment://{fname}")
-        embed.add_field(name="カード名", value="【真紅一輪】白瀬 咲耶", inline=False)
-        embed.add_field(name="ライブスキル(test)", value="真紅一輪\nVocal2.5倍アピール\n真紅一輪+\nDance3.5倍アピール\n", inline=False)
-        await inter.channel.send(file=file, embed=embed)
-
-    elif labels == ['[P]雪染めロマンティカ']:
-        embed = discord.Embed(title="カード情報", description="Pアイドルカードの情報です。", color=0xF067A6)
-        fname="sakuya_pi113.png"
-        file = discord.File(fp="img/sakuya_pi113.png",filename=fname, spoiler=False)
-        embed.set_thumbnail(url=f"attachment://{fname}")
-        embed.add_field(name="カード名", value="【雪染めロマンティカ】白瀬 咲耶", inline=False)
-        embed.add_field(name="ライブスキル(test)", value="雪染めロマンティカ\nVocal1.5倍アピール/影響力10%DOWN[3ターン]\n雪染めロマンティカ+\nDance2倍アピール/影響力10%DOWN[3ターン]\n", inline=False)
-        await inter.channel.send(file=file, embed=embed)
-
-    elif labels == ['[P]ふれあい、おもいあい']:
-        embed = discord.Embed(title="カード情報", description="Pアイドルカードの情報です。", color=0xF067A6)
-        fname="sakuya_pi112.png"
-        file = discord.File(fp="img/sakuya_pi112.png",filename=fname, spoiler=False)
-        embed.set_thumbnail(url=f"attachment://{fname}")
-        embed.add_field(name="カード名", value="【ふれあい、おもいあい】白瀬 咲耶", inline=False)
-        embed.add_field(name="ライブスキル(test)", value="ふれあい、おもいあい\nVisual最大3.5倍アピール[メンタルが少ないほど効果UP]\nVocal最大5倍アピール[メンタルが少ないほど効果UP]\n", inline=False)
-        await inter.channel.send(file=file, embed=embed)
-
-    elif labels == ['[P]秘めやかファンサービス']:
-        embed = discord.Embed(title="カード情報", description="Pアイドルカードの情報です。", color=0xF067A6)
-        fname="sakuya_pi111.png"
-        file = discord.File(fp="img/sakuya_pi111.png",filename=fname, spoiler=False)
-        embed.set_thumbnail(url=f"attachment://{fname}")
-        embed.add_field(name="カード名", value="【秘めやかファンサービス】白瀬 咲耶", inline=False)
-        embed.add_field(name="ライブスキル(test)", value="秘めやかファンサービス\nDance2.5倍アピール\n秘めやかファンサービス+\nVisual3.5倍アピール\n", inline=False)
-        await inter.channel.send(file=file, embed=embed)
-
-    elif labels == ['✕ キャンセル']:
-        await inter.reply("キャンセルされました。")
-        await clear(inter, 0)
-    else:
-        await inter.reply("")
-
 #--- bot.event ---------------
 @bot.event
 async def on_ready():
     # このbotのサーバーにオンラインになった時に管理人にDM(ダイレクトメッセージ)を送信する。
     print('------')
     print('Login infomation>>>')
-    print('v1.04  ')
+    print('v1.7  ')
     print(f'{bot.user.name}がログインしたよ。')
     print('------')
     await bot.change_presence(activity=discord.Game(name="!help"))
